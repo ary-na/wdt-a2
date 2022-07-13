@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
-using s3910902_a2.Models;
+using s3910902_a2.ViewModels;
 
 namespace s3910902_a2.Controllers;
 

@@ -1,4 +1,4 @@
-namespace s3910902_a2.Models;
+namespace s3910902_a2.ViewModels;
 
 public class ErrorViewModel
 {
