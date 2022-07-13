@@ -5,11 +5,14 @@ using s3910902_a2.Models;
 
 namespace s3910902_a2.Services;
 
-// Code sourced and adapted from:
 // Week 3 Tutorial - PersonWebService.cs
 // Week 3 Tutorial - Primes.cs
-// Week 6 Tutorial - McbaExampleWithLogin - SeedData.cs
 // https://rmit.instructure.com/courses/102750/files/24402824?wrap=1
+
+// Code sourced and adapted from:
+// Week 6 Tutorial - McbaExampleWithLogin - SeedData.cs
+// https://rmit.instructure.com/courses/102750/files/24426594?wrap=1
+
 public static class CustomerWebService
 {
     public static async Task GetAndSaveCustomer(IServiceProvider serviceProvider)
@@ -43,6 +46,10 @@ public static class CustomerWebService
     // https://stackoverflow.com/questions/68859259/how-to-await-until-parallel-task-done
     // https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/async/start-multiple-async-tasks-and-process-them-as-they-complete?pivots=dotnet-6-0
     // https://docs.microsoft.com/en-us/archive/msdn-magazine/2013/march/async-await-best-practices-in-asynchronous-programming
+    // https://docs.microsoft.com/en-us/troubleshoot/sql/connect/error-message-when-you-connect
+    // https://stackoverflow.com/questions/1202981/select-multiple-fields-from-list-in-linq
+    // https://stackoverflow.com/questions/28588684/add-object-list-to-db-context-in-entity-framework
+    
 
     private static async Task InsertCustomers(McbaContext context, IEnumerable<CustomerDTO> customers)
     {

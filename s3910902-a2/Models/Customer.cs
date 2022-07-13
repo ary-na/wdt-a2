@@ -5,6 +5,7 @@ namespace s3910902_a2.Models;
 
 // Code sourced and adapted from:
 // Week 4 Tutorial - Movie.cs
+// https://rmit.instructure.com/courses/102750/files/24425150?wrap=1
 
 // Code sourced and adapted from:
 // https://regexr.com

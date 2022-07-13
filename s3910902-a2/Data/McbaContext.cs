@@ -5,6 +5,7 @@ namespace s3910902_a2.Data;
 
 // Code sourced and adapted from:
 // Week 7 Lectorial - McbaContext.cs
+// https://rmit.instructure.com/courses/102750/files/24426714?wrap=1
 
 public class McbaContext : DbContext
 {
