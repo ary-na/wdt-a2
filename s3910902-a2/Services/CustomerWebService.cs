@@ -2,6 +2,7 @@ using Newtonsoft.Json;
 using s3910902_a2.Data;
 using s3910902_a2.DTOs;
 using s3910902_a2.Models;
+using s3910902_a2.Models.Types;
 
 namespace s3910902_a2.Services;
 
@@ -13,9 +14,12 @@ namespace s3910902_a2.Services;
 // Week 6 Tutorial - McbaExampleWithLogin - SeedData.cs
 // https://rmit.instructure.com/courses/102750/files/24426594?wrap=1
 
+// Code sourced and adapted from:
+// https://stackoverflow.com/questions/20120511/i-cant-await-awaitable
+
 public static class CustomerWebService
 {
-    public static async Task GetAndSaveCustomer(IServiceProvider serviceProvider)
+    public static async Task GetAndSaveCustomersAsync(IServiceProvider serviceProvider)
     {
         var context = serviceProvider.GetRequiredService<McbaContext>();
 
@@ -24,7 +28,7 @@ public static class CustomerWebService
 
         const string url = "https://coreteaching01.csit.rmit.edu.au/~e103884/wdt/services/customers/";
         using var client = new HttpClient();
-        var json = client.GetStringAsync(url).Result;
+        var json = await client.GetStringAsync(url);
 
         // Deserialize
         var customers = JsonConvert.DeserializeObject<List<CustomerDTO>>(json, new JsonSerializerSettings
@@ -35,9 +39,8 @@ public static class CustomerWebService
         });
         
         if (customers is null) return;
-        
         // Insert customers into database
-        await InsertCustomers(context, customers);
+        await InsertCustomersAsync(context, customers);
     }
 
     // Code sourced and adapted from:
@@ -51,7 +54,7 @@ public static class CustomerWebService
     // https://stackoverflow.com/questions/28588684/add-object-list-to-db-context-in-entity-framework
     
 
-    private static async Task InsertCustomers(McbaContext context, IEnumerable<CustomerDTO> customers)
+    private static async Task InsertCustomersAsync(McbaContext context, IEnumerable<CustomerDTO> customers)
     {
         foreach (var customer in customers)
         {

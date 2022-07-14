@@ -12,7 +12,7 @@ using s3910902_a2.Data;
 namespace s3910902_a2.Migrations
 {
     [DbContext(typeof(McbaContext))]
-    [Migration("20220713023933_Initial")]
+    [Migration("20220714021258_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -44,6 +44,39 @@ namespace s3910902_a2.Migrations
                     b.HasIndex("CustomerID");
 
                     b.ToTable("Accounts");
+                });
+
+            modelBuilder.Entity("s3910902_a2.Models.BillPay", b =>
+                {
+                    b.Property<int>("BillPayID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("BillPayID"), 1L, 1);
+
+                    b.Property<int>("AccountNumber")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("money");
+
+                    b.Property<int>("PayeeID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Period")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(1)");
+
+                    b.Property<DateTime>("ScheduleTimeUtc")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("BillPayID");
+
+                    b.HasIndex("AccountNumber");
+
+                    b.HasIndex("PayeeID");
+
+                    b.ToTable("BillPay");
                 });
 
             modelBuilder.Entity("s3910902_a2.Models.Customer", b =>
@@ -107,6 +140,49 @@ namespace s3910902_a2.Migrations
                     b.ToTable("Logins");
                 });
 
+            modelBuilder.Entity("s3910902_a2.Models.Payee", b =>
+                {
+                    b.Property<int>("PayeeID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PayeeID"), 1L, 1);
+
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("City")
+                        .IsRequired()
+                        .HasMaxLength(40)
+                        .HasColumnType("nvarchar(40)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("Phone")
+                        .IsRequired()
+                        .HasMaxLength(14)
+                        .HasColumnType("nvarchar(14)");
+
+                    b.Property<string>("PostCode")
+                        .IsRequired()
+                        .HasMaxLength(4)
+                        .HasColumnType("nvarchar(4)");
+
+                    b.Property<string>("State")
+                        .IsRequired()
+                        .HasMaxLength(3)
+                        .HasColumnType("nvarchar(3)");
+
+                    b.HasKey("PayeeID");
+
+                    b.ToTable("Payee");
+                });
+
             modelBuilder.Entity("s3910902_a2.Models.Transaction", b =>
                 {
                     b.Property<int>("TransactionID")
@@ -154,6 +230,25 @@ namespace s3910902_a2.Migrations
                     b.Navigation("Customer");
                 });
 
+            modelBuilder.Entity("s3910902_a2.Models.BillPay", b =>
+                {
+                    b.HasOne("s3910902_a2.Models.Account", "Account")
+                        .WithMany("BillPays")
+                        .HasForeignKey("AccountNumber")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("s3910902_a2.Models.Payee", "Payee")
+                        .WithMany("Payments")
+                        .HasForeignKey("PayeeID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Account");
+
+                    b.Navigation("Payee");
+                });
+
             modelBuilder.Entity("s3910902_a2.Models.Login", b =>
                 {
                     b.HasOne("s3910902_a2.Models.Customer", "Customer")
@@ -184,6 +279,8 @@ namespace s3910902_a2.Migrations
 
             modelBuilder.Entity("s3910902_a2.Models.Account", b =>
                 {
+                    b.Navigation("BillPays");
+
                     b.Navigation("Transactions");
                 });
 
@@ -192,6 +289,11 @@ namespace s3910902_a2.Migrations
                     b.Navigation("Accounts");
 
                     b.Navigation("Login");
+                });
+
+            modelBuilder.Entity("s3910902_a2.Models.Payee", b =>
+                {
+                    b.Navigation("Payments");
                 });
 #pragma warning restore 612, 618
         }

@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using s3910902_a2.Models.Types;
 
 namespace s3910902_a2.Models;
 
@@ -17,5 +18,8 @@ public class Account
     public decimal Balance { get; set; }
     
     [InverseProperty(nameof(Transaction.Account))]
-    public List<Transaction> Transactions { get; set; }
+    public List<Transaction>? Transactions { get; set; }
+    
+    [InverseProperty(nameof(BillPay.Account))]
+    public List<BillPay>? BillPays { get; set; }
 }

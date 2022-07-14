@@ -17,7 +17,7 @@ using (var scope = app.Services.CreateScope())
     var services = scope.ServiceProvider;
     try
     {
-        await CustomerWebService.GetAndSaveCustomer(services);
+        await CustomerWebService.GetAndSaveCustomersAsync(services);
     }
     catch (Exception e)
     {
