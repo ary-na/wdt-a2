@@ -5,9 +5,10 @@ namespace s3910902_a2.Models;
 
 public class Login
 {
-    [Required, Column(TypeName = "char"), StringLength(8)]
+    [Column(TypeName = "char"), StringLength(8)]
     public string? LoginID { get; set; }
     
+    [ForeignKey(nameof(Customer))]
     public int CustomerID { get; set; }
     public virtual Customer? Customer { get; set; }
     

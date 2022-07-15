@@ -1,13 +1,36 @@
+using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.EntityFrameworkCore;
 using s3910902_a2.Data;
+using s3910902_a2.Filters;
 using s3910902_a2.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddDbContext<McbaContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString(nameof(McbaContext))));
-builder.Services.AddControllersWithViews();
+{
+    options.UseSqlServer(builder.Configuration.GetConnectionString(nameof(McbaContext)) ?? throw new InvalidOperationException());
+    builder.Services.AddControllersWithViews();
+    
+    // Enable lazy loading.
+    options.UseLazyLoadingProxies();
+});
+
+builder.Services.AddDistributedSqlServerCache(options =>
+{
+    options.ConnectionString = builder.Configuration.GetConnectionString(nameof(McbaContext));
+    options.SchemaName = "dotnet";
+    options.TableName = "SessionCache";
+});
+
+builder.Services.AddSession(options =>
+{
+    // Make the session cookie essential.
+    options.Cookie.IsEssential = true;
+    options.IdleTimeout = TimeSpan.FromMinutes(20);
+});
+
+builder.Services.AddControllersWithViews(options => options.Filters.Add(new AuthoriseCustomerAttribute()));
 
 var app = builder.Build();
 
@@ -36,13 +59,8 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-
 app.UseRouting();
-
 app.UseAuthorization();
-
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
-
+app.UseSession();
+app.MapDefaultControllerRoute();
 app.Run();

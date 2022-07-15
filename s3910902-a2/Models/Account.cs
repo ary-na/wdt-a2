@@ -18,8 +18,8 @@ public class Account
     public decimal Balance { get; set; }
     
     [InverseProperty(nameof(Transaction.Account))]
-    public List<Transaction>? Transactions { get; set; }
+    public virtual List<Transaction>? Transactions { get; set; }
     
     [InverseProperty(nameof(BillPay.Account))]
-    public List<BillPay>? BillPays { get; set; }
+    public virtual List<BillPay>? BillPays { get; set; }
 }

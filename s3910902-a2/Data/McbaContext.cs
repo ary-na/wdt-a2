@@ -22,5 +22,6 @@ public class McbaContext : DbContext
     public virtual DbSet<Login> Logins { get; set; }
     public virtual DbSet<Account> Accounts { get; set; }
     public virtual DbSet<Transaction> Transactions { get; set; }
-    
+    public virtual DbSet<BillPay> BillPays { get; set; }
+    public virtual DbSet<Payee> Payees { get; set; }
 }

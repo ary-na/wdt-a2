@@ -22,5 +22,5 @@ public class Payee
     [Required, StringLength(14)] public string? Phone { get; set; }
     
     [InverseProperty(nameof(BillPay.Payee))]
-    public List<BillPay>? Payments { get; set; }
+    public virtual List<BillPay>? Payments { get; set; }
 }

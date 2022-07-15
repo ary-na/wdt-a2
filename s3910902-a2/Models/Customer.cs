@@ -34,6 +34,4 @@ public class Customer
     public string? Mobile { get; set; }
 
     public virtual List<Account>? Accounts { get; set; }
-
-    public virtual Login? Login { get; set; }
 }
