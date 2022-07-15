@@ -1,6 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using s3910902_a2.Models.Types;
+using s3910902_a2.Validations;
 
 namespace s3910902_a2.Models;
 
