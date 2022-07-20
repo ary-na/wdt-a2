@@ -9,9 +9,10 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddDbContext<McbaContext>(options =>
 {
-    options.UseSqlServer(builder.Configuration.GetConnectionString(nameof(McbaContext)) ?? throw new InvalidOperationException());
+    options.UseSqlServer(builder.Configuration.GetConnectionString(nameof(McbaContext)) ??
+                         throw new InvalidOperationException());
     builder.Services.AddControllersWithViews();
-    
+
     // Enable lazy loading.
     options.UseLazyLoadingProxies();
 });
@@ -31,6 +32,13 @@ builder.Services.AddSession(options =>
 });
 
 builder.Services.AddControllersWithViews(options => options.Filters.Add(new AuthoriseCustomerAttribute()));
+
+// Add Npm service to the container
+#if DEBUG
+builder.Services.AddHostedService(sp => new NpmWatchHostedService(
+    enabled: sp.GetRequiredService<IWebHostEnvironment>().IsDevelopment(),
+    logger: sp.GetRequiredService<ILogger<NpmWatchHostedService>>()));
+#endif
 
 var app = builder.Build();
 

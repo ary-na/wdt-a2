@@ -6,6 +6,7 @@ using s3910902_a2.Models.Types;
 
 namespace s3910902_a2.Services;
 
+// Code sourced and adapted from:
 // Week 3 Tutorial - PersonWebService.cs
 // Week 3 Tutorial - Primes.cs
 // https://rmit.instructure.com/courses/102750/files/24402824?wrap=1
