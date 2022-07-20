@@ -1,0 +1,24 @@
+@use 'variables';
+@use 'buttons';
+
+/*
+Code sourced and adapted from:
+https://sass-lang.com/guide 
+*/
+
+body {
+  background-color: variables.$color-brown-primary;
+}
+
+html, body {
+  height: 100vh;
+}
+
+*, *:focus, *:hover {
+  outline: none;
+}
+
+footer {
+  height: 500px;
+  background-color: gray;
+}
