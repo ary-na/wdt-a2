@@ -1,13 +1,19 @@
-@use 'variables';
-@use 'buttons';
+@import 'abstracts/variables';
+@import 'abstracts/buttons';
+@import "../node_modules/bootstrap/scss/bootstrap";
 
 /*
 Code sourced and adapted from:
 https://sass-lang.com/guide 
+https://getbootstrap.com/docs/5.0/getting-started/introduction/
 */
 
 body {
-  background-color: variables.$color-brown-primary;
+  font-family: $font-family-primary;
+}
+
+main {
+  height: 100vh;
 }
 
 html, body {
@@ -16,9 +22,4 @@ html, body {
 
 *, *:focus, *:hover {
   outline: none;
-}
-
-footer {
-  height: 500px;
-  background-color: gray;
 }

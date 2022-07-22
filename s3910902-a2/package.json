@@ -1,8 +1,6 @@
 {
   "name": "s3910902-a2",
-  "version": "1.0.0",
-  "description": "MCBA Web App",
-  "main": "postcss.config.js",
+  "private": "true",
   "scripts": {
     "prebuild:css": "rm -rf wwwroot/css",
     "build:css": "sass --style compressed --no-source-map Styles:wwwroot/css",
@@ -12,11 +10,15 @@
   },
   "devDependencies": {
     "autoprefixer": "^10.2.6",
+    "bootstrap": "^5.2.0",
     "cssnano": "^5.0.5",
     "cssnano-preset-advanced": "^5.1.2",
-    "postcss-cli": "^8.3.1",
+    "postcss-cli": "^10.0.0",
     "sass": "^1.34.1"
   },
+  "version": "1.0.0",
+  "main": "postcss.config.js",
   "author": "Arian Najafi Yamchelo",
-  "license": "ISC"
+  "license": "ISC",
+  "description": "MCBA Web App"
 }

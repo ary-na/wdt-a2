@@ -1,0 +1,18 @@
+@import "colors";
+@import "fonts";
+
+/* Sass Variables *************************************************/
+
+/* Nav */
+$navbar-light-color: $color-purple-secondary;
+$navbar-light-hover-color: $color-purple-primary;
+$navbar-toggler-focus-width: 1px;
+
+$theme-colors: (
+        "primary": $color-purple-primary,
+        "secondary": $color-purple-secondary
+);
+
+/******************************************************************/
+
+
