@@ -1,4 +1,19 @@
-﻿<!DOCTYPE html>
+﻿<!-- 
+// Code sourced and adapted from:
+// Week 7 Lectorial - _Layout.cshtml 
+//
+// Code sourced and adapted from:
+// https://www.w3schools.com/html/html_comments.asp
+// https://bootstrapious.com/p/how-to-change-bootstrap-navbar-height
+// https://stackoverflow.com/questions/53896925/bootstrap-how-to-create-a-full-screen-layout-with-scrollable-columns
+
+
+// Temp
+// https://levelup.gitconnected.com/using-asp-net-mvc-to-specify-which-element-in-a-navigation-bar-is-active-9c3dac154f9c
+-->
+
+@using s3910902_a2.Models
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8"/>
@@ -7,11 +22,11 @@
     <link rel="stylesheet" href="~/css/site.css"/>
     <link rel="stylesheet" href="~/s3910902_a2.styles.css" asp-append-version="true"/>
 </head>
-<body>
+<body class="d-flex flex-column vh-100">
 <header>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+    <div class="navbar py-xl-3 navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
-            <a class="navbar-brand" asp-controller="Home" asp-action="Index">
+            <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
                 <img src="~/img/logos/MCBA-Logo-Primary.png" alt="Most Common Bank of Australia" width="24" height="24" class="d-inline-block align-text-top">
                 MCBA
             </a>
@@ -28,36 +43,74 @@
                     </li>
                 </ul>
                 <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link" asp-area="" asp-controller="Login" asp-action="Login">Login</a>
-                    </li>
+                    @if (Context.Session.GetInt32(nameof(Customer.CustomerID)).HasValue)
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Customer" asp-action="Index">Welcome, @Context.Session.GetString(nameof(Customer.Name))</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Login" asp-action="Logout">Logout</a>
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Login" asp-action="Login">Login</a>
+                        </li>
+                    }
                 </ul>
             </div>
         </div>
-    </nav>
-
-
+    </div>
 </header>
-<div class="container">
+
+@if (Context.Session.GetInt32(nameof(Customer.CustomerID)).HasValue)
+{
+    <nav>
+        <ul class="nav py-1 bg-secondary justify-content-center">
+            <li class="nav-item active @Html.ActiveClass("Customer", "Index")">
+                <a class="nav-link" asp-area="" asp-controller="Customer" asp-action="Index">Deposit</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" asp-area="" asp-controller="Customer" asp-action="Index">Withdraw</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" asp-area="" asp-controller="Customer" asp-action="Index">Transfer</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" asp-area="" asp-controller="Customer" asp-action="Index">My Statements</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" asp-area="" asp-controller="Customer" asp-action="Index">My Profile</a>
+            </li>
+        </ul>
+    </nav>
+}
+
+<div class="container flex-grow-1 overflow-scroll">
     <main role="main" class="pb-3">
         @RenderBody()
     </main>
 </div>
 
 <div class="container">
-  <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
-    <div class="col-md-4 d-flex align-items-center">
-      <a href="/" class="mb-3 me-2 mb-md-0 text-muted text-decoration-none lh-1">
-          <img class="bi" src="~/img/logos/MCBA-Logo-Gray.png" alt="Most Common Bank of Australia Logo" width="30" height="30" />
-      </a>
-      <span class="text-muted">&copy; 2022 MCBA</span>
-    </div>
+    <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
+        <div class="col-md-4 d-flex align-items-center">
+            <a href="/" class="mb-3 me-2 mb-md-0 text-muted text-decoration-none lh-1">
+                <img class="bi" src="~/img/logos/MCBA-Logo-Gray.png" alt="Most Common Bank of Australia Logo" width="30" height="30"/>
+            </a>
+            <span class="text-muted">&copy; 2022 MCBA</span>
+        </div>
 
-    <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
-      <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Home</a></li>
-      <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Privacy</a></li>
-    </ul>
-  </footer>
+        <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
+            <li class="nav-item">
+                <a href="#" class="nav-link px-2 text-muted">Home</a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link px-2 text-muted">Privacy</a>
+            </li>
+        </ul>
+    </footer>
 </div>
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
 <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

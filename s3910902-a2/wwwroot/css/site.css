@@ -3363,8 +3363,8 @@ textarea.form-control-lg {
   --bs-nav-link-padding-x: 1rem;
   --bs-nav-link-padding-y: 0.5rem;
   --bs-nav-link-font-weight: ;
-  --bs-nav-link-color: var(--bs-link-color);
-  --bs-nav-link-hover-color: var(--bs-link-hover-color);
+  --bs-nav-link-color: #9381FF;
+  --bs-nav-link-hover-color: white;
   --bs-nav-link-disabled-color: #6c757d;
   display: flex;
   flex-wrap: wrap;
@@ -3483,8 +3483,8 @@ textarea.form-control-lg {
 .navbar {
   --bs-navbar-padding-x: 0;
   --bs-navbar-padding-y: 0.5rem;
-  --bs-navbar-color: #B8B8FF;
-  --bs-navbar-hover-color: #9381FF;
+  --bs-navbar-color: rgba(0, 0, 0, 0.55);
+  --bs-navbar-hover-color: rgba(0, 0, 0, 0.7);
   --bs-navbar-disabled-color: rgba(0, 0, 0, 0.3);
   --bs-navbar-active-color: rgba(0, 0, 0, 0.9);
   --bs-navbar-brand-padding-y: 0.3125rem;
@@ -3496,7 +3496,7 @@ textarea.form-control-lg {
   --bs-navbar-toggler-padding-y: 0.25rem;
   --bs-navbar-toggler-padding-x: 0.75rem;
   --bs-navbar-toggler-font-size: 1.25rem;
-  --bs-navbar-toggler-icon-bg: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='%23B8B8FF' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+  --bs-navbar-toggler-icon-bg: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%280, 0, 0, 0.55%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
   --bs-navbar-toggler-border-color: rgba(0, 0, 0, 0.1);
   --bs-navbar-toggler-border-radius: 0.375rem;
   --bs-navbar-toggler-focus-width: 1px;
@@ -10266,24 +10266,18 @@ textarea.form-control-lg {
   }
 }
 /*
-Code sourced and adapted from:
-https://sass-lang.com/guide 
-https://getbootstrap.com/docs/5.0/getting-started/introduction/
+// Code sourced and adapted from:
+// https://sass-lang.com/guide 
+// https://getbootstrap.com/docs/5.0/getting-started/introduction/
 */
-body {
-  font-family: "Inter", sans-serif;
-}
-
-main {
-  height: 100vh;
-}
-
-html, body {
-  height: 100vh;
-}
-
 *, *:focus, *:hover {
   outline: none;
+}
+
+body, html {
+  font-family: "Inter", sans-serif;
+  margin: 0;
+  padding: 0;
 }
 
 /*# sourceMappingURL=site.css.map */

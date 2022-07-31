@@ -3,23 +3,17 @@
 @import "../node_modules/bootstrap/scss/bootstrap";
 
 /*
-Code sourced and adapted from:
-https://sass-lang.com/guide 
-https://getbootstrap.com/docs/5.0/getting-started/introduction/
+// Code sourced and adapted from:
+// https://sass-lang.com/guide 
+// https://getbootstrap.com/docs/5.0/getting-started/introduction/
 */
-
-body {
-  font-family: $font-family-primary;
-}
-
-main {
-  height: 100vh;
-}
-
-html, body {
-  height: 100vh;
-}
 
 *, *:focus, *:hover {
   outline: none;
+}
+
+body, html {
+  font-family: $font-family-primary;
+  margin: 0;
+  padding: 0;
 }
