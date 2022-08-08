@@ -1,7 +1,7 @@
-using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.EntityFrameworkCore;
 using s3910902_a2.Data;
 using s3910902_a2.Filters;
+using s3910902_a2.Models.DataManagers;
 using s3910902_a2.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -16,6 +16,8 @@ builder.Services.AddDbContext<McbaContext>(options =>
     // Enable lazy loading.
     options.UseLazyLoadingProxies();
 });
+
+builder.Services.AddScoped<AccountManager>();
 
 builder.Services.AddDistributedSqlServerCache(options =>
 {
@@ -49,11 +51,12 @@ using (var scope = app.Services.CreateScope())
     try
     {
         await CustomerWebService.GetAndSaveCustomersAsync(services);
+        await SeedPayeesData.InitializePayees(services);
     }
     catch (Exception e)
     {
         var logger = services.GetRequiredService<ILogger<Program>>();
-        logger.LogError(e, "An error occurred inserting data into database.");
+        logger.LogError(e, "An error occurred seeding data into database");
     }
 }
 

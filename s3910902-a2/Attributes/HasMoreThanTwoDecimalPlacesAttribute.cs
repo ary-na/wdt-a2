@@ -1,21 +1,20 @@
 using System.ComponentModel.DataAnnotations;
-using s3910902_a2.Models;
 using s3910902_a2.Utilities;
 
-namespace s3910902_a2.Validations;
+namespace s3910902_a2.Attributes;
 
 // https://docs.microsoft.com/en-us/aspnet/core/mvc/models/validation?view=aspnetcore-6.0
 // https://www.jetbrains.com/help/resharper/ConvertIfStatementToReturnStatement.html
+// https://stackoverflow.com/questions/23780943/how-to-create-custom-validation-attribute
 
-public class DecimalPlacesAttribute : ValidationAttribute
+public class HasMoreThanTwoDecimalPlacesAttribute : ValidationAttribute
 {
-    private static string GetErrorMessage() => "Amount cannot have more than 2 decimal places.";
+    private static string GetErrorMessage() => "Amount cannot have more than two decimal places.";
 
     protected override ValidationResult? IsValid(object? value, ValidationContext validationContext)
     {
-        var transaction = (Transaction)validationContext.ObjectInstance;
-
-        return transaction.Amount.HasMoreThanTwoDecimalPlaces()
+        var amount = (decimal)(value ?? throw new NullReferenceException());
+        return amount.HasMoreThanTwoDecimalPlaces()
             ? new ValidationResult(GetErrorMessage())
             : ValidationResult.Success;
     }

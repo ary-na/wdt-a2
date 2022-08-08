@@ -1,21 +1,13 @@
-<!-- 
-// Code sourced and adapted from:
-// Week 5 Lectorial - Deposit.cshtml 
-
-// Code sourced and adapted from:
-// https://stackoverflow.com/questions/15148103/mvc-4-how-do-i-pass-model-data-to-a-partial-view
--->
-
 @model s3910902_a2.ViewModels.TransactionViewModel
 @{
-    ViewData["Title"] = "Deposit";
+    ViewData["Title"] = "Transfer";
 }
 
 <h1 class="display-4">Account Number @Model.Account?.AccountNumber (@Model.Account?.AccountType)</h1>
 
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Deposit">
+        <form asp-action="Transfer">
             <input type="hidden" asp-for="AccountNumber"/>
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="mb-3">
@@ -25,25 +17,27 @@
             </div>
 
             <div class="mb-3">
+                <label asp-for="DestinationAccountNumber" class="form-label"></label>
+                <input type="text" asp-for="DestinationAccountNumber" class="form-control">
+                <span asp-validation-for="DestinationAccountNumber" class="text-danger"></span>
+            </div>
+
+
+            <div class="mb-3">
                 <label asp-for="Comment" class="form-label"></label>
                 <input type="text" asp-for="Comment" class="form-control">
                 <span asp-validation-for="Comment" class="text-danger"></span>
             </div>
-            
-            <partial name="_ConfirmModal" for="@Model"/>
-            
-        </form>
 
+            <partial name="_ConfirmModal" for="@Model"/>
+        </form>
     </div>
 </div>
-
 
 <div>
     <a asp-action="Index">Back to Accounts</a>
 </div>
 
-
 @section Scripts {
     @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
-
 }

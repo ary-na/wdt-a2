@@ -7,6 +7,8 @@ public static class ExtensionUtilities
     private static bool HasMoreThanNDecimalPlaces(this decimal value, int n) => decimal.Round(value, n) != value;
     public static bool HasMoreThanTwoDecimalPlaces(this decimal value) => value.HasMoreThanNDecimalPlaces(2);
 
+    public static bool LessThanOrEqualToZero(this decimal value) => value <= 0;
+
     public static string ActiveClass(this IHtmlHelper htmlHelper, string? controllers = null, string? actions = null,
         string cssClass = "active")
     {

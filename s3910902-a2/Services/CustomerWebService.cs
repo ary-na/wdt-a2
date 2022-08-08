@@ -24,7 +24,7 @@ public static class CustomerWebService
     {
         var context = serviceProvider.GetRequiredService<McbaContext>();
 
-        // Any customers in database condition
+        // Look for customers condition
         if (context.Customers.Any()) return;
 
         const string url = "https://coreteaching01.csit.rmit.edu.au/~e103884/wdt/services/customers/";
@@ -77,13 +77,11 @@ public static class CustomerWebService
 
             foreach (var account in customer.Accounts)
             {
-                account.Transactions?.ForEach(x => account.Balance += x.Amount);
                 await context.Accounts.AddAsync(new Account
                 {
                     AccountNumber = account.AccountNumber,
                     AccountType = account.AccountType == 'S' ? AccountType.Saving : AccountType.Checking,
                     CustomerID = account.CustomerId,
-                    Balance = account.Balance
                 });
 
                 foreach (var transaction in account.Transactions)

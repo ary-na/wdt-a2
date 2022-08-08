@@ -1,64 +1,115 @@
 using Microsoft.AspNetCore.Mvc;
 using s3910902_a2.Data;
 using s3910902_a2.Models;
+using s3910902_a2.Models.DataManagers;
 using s3910902_a2.Models.Types;
+using s3910902_a2.ViewModels;
 
 namespace s3910902_a2.Controllers;
+
+// Code sourced and adapted from:
+// Week 5 Lectorial - HomeController.cs
 
 public class CustomerController : Controller
 {
     private readonly McbaContext _context;
-
-    // ReSharper disable once PossibleInvalidOperationException
+    private readonly AccountManager _accountManager;
     private int CustomerID => HttpContext.Session.GetInt32(nameof(Customer.CustomerID)).Value;
 
-    public CustomerController(McbaContext context) => _context = context;
+    public CustomerController(McbaContext context, AccountManager accountManager)
+    {
+        _context = context;
+        _accountManager = accountManager;
+    }
 
-    // Can add authorize attribute to actions.
-    //[AuthorizeCustomer]
     public async Task<IActionResult> Index()
     {
-        // Lazy loading.
-        // The Customer.Accounts property will be lazy loaded upon demand.
         var customer = await _context.Customers.FindAsync(CustomerID);
 
-        // OR
-        // Eager loading.
-        //var customer = await _context.Customers.Include(x => x.Accounts).
-        //    FirstOrDefaultAsync(x => x.CustomerID == _customerID);
+        foreach (var account in customer.Accounts)
+            account.Balance = await _accountManager.GetAccountBalanceAsync(account.AccountNumber);
 
         return View(customer);
     }
 
-    public async Task<IActionResult> Deposit(int id) => View(await _context.Accounts.FindAsync(id));
+    public async Task<IActionResult> Deposit(int accountNumber)
+    {
+        return View(new TransactionViewModel
+            {
+                AccountNumber = accountNumber,
+                TransactionType = TransactionType.Deposit,
+                Account = await _accountManager.GetAccountAsync(accountNumber)
+            }
+        );
+    }
 
     [HttpPost]
-    public async Task<IActionResult> Deposit(int id, decimal amount)
+    public async Task<IActionResult> Deposit(TransactionViewModel viewModel)
     {
-        var account = await _context.Accounts.FindAsync(id);
+        // Set view account
+        viewModel.Account = await _accountManager.GetAccountAsync(viewModel.AccountNumber);
+        viewModel.TransactionType = TransactionType.Deposit;
 
-        if(amount <= 0)
-            ModelState.AddModelError(nameof(amount), "Amount must be positive.");
-        // if(amount.HasMoreThanTwoDecimalPlaces())
-        //     ModelState.AddModelError(nameof(amount), "Amount cannot have more than 2 decimal places.");
-        if(!ModelState.IsValid)
-        {
-            ViewBag.Amount = amount;
-            return View(account);
-        }
+        // Check model state
+        if (!ModelState.IsValid)
+            return View(viewModel);
 
-        // Note this code could be moved out of the controller, e.g., into the Model.
-        account.Balance += amount;
-        account.Transactions.Add(
-            new Transaction
+        // Insert transaction
+        await _accountManager.DepositAsync(viewModel);
+        return RedirectToAction(nameof(Index));
+    }
+
+    public async Task<IActionResult> Withdraw(int accountNumber)
+    {
+        return View(new TransactionViewModel
             {
-                TransactionType = TransactionType.Deposit,
-                Amount = amount,
-                TransactionTimeUtc = DateTime.UtcNow
-            });
+                AccountNumber = accountNumber,
+                TransactionType = TransactionType.Withdraw,
+                Account = await _accountManager.GetAccountAsync(accountNumber)
+            }
+        );
+    }
 
-        await _context.SaveChangesAsync();
+    [HttpPost]
+    public async Task<IActionResult> Withdraw(TransactionViewModel viewModel)
+    {
+        // Set view account
+        viewModel.Account = await _accountManager.GetAccountAsync(viewModel.AccountNumber);
+        viewModel.TransactionType = TransactionType.Withdraw;
 
+        // Check model state
+        if (!ModelState.IsValid)
+            return View(viewModel);
+
+        // Insert transaction
+        await _accountManager.WithdrawAsync(viewModel);
+        return RedirectToAction(nameof(Index));
+    }
+    
+    public async Task<IActionResult> Transfer(int accountNumber)
+    {
+        return View(new TransactionViewModel
+            {
+                AccountNumber = accountNumber,
+                TransactionType = TransactionType.Transfer,
+                Account = await _accountManager.GetAccountAsync(accountNumber)
+            }
+        );
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Transfer(TransactionViewModel viewModel)
+    {
+        // Set view account
+        viewModel.Account = await _accountManager.GetAccountAsync(viewModel.AccountNumber);
+        viewModel.TransactionType = TransactionType.Transfer;
+
+        // Check model state
+        if (!ModelState.IsValid)
+            return View(viewModel);
+
+        // Insert transaction
+        await _accountManager.TransferAsync(viewModel);
         return RedirectToAction(nameof(Index));
     }
 }

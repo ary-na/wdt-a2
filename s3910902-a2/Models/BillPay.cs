@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using s3910902_a2.Models.Types;
 
 namespace s3910902_a2.Models;
 
@@ -17,5 +18,7 @@ public class BillPay
 
     [Required] public DateTime ScheduleTimeUtc { get; set; }
 
-    [Required] public char Period { get; set; }
+    [Required] public BillPayPeriod Period { get; set; }
+    
+    [Required] public BillPayState BillState { get; set; }
 }

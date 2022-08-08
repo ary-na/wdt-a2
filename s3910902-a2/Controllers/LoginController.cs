@@ -33,7 +33,7 @@ public class LoginController : Controller
         return RedirectToAction("Index", "Customer");
     }
 
-    [Route("LogoutNow")]
+    [Route("Logout")]
     public IActionResult Logout()
     {
         // Logout customer.
