@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "s3910902-a2", "s3910902-a2\s3910902-a2.csproj", "{E11DC710-411F-460B-B3FA-85E5CA252E2C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MCBA-Customer", "MCBA-Customer\MCBA-Customer.csproj", "{E11DC710-411F-460B-B3FA-85E5CA252E2C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
