@@ -9,6 +9,8 @@ namespace s3910902_a2.Models;
 
 public class Account
 {
+    private const int FreeTransactionCount = 2;
+
     private static readonly Dictionary<AccountType, decimal> MinimumBalance = new()
     {
         { AccountType.Saving, 0 },
@@ -32,4 +34,5 @@ public class Account
     public virtual List<BillPay>? BillPays { get; set; }
 
     public decimal AvailableBalance => Math.Max(Balance - MinimumBalance[AccountType], 0);
+    public bool AvailableFreeTransaction(int transactionCount) => FreeTransactionCount >= transactionCount;
 }

@@ -30,13 +30,20 @@ public class AccountManager
                    .Sum(x => x.Amount);
     }
 
-    public async Task DepositAsync(TransactionViewModel viewModel)
+    private async Task<int> GetTransactionCountAsync(int accountNumber)
+    {
+        var accounts = await _context.Accounts.FindAsync(accountNumber);
+        return accounts.Transactions.Count(x =>
+            x.TransactionType is TransactionType.Withdraw or TransactionType.Transfer);
+    }
+
+    public async Task DepositAsync(DepositViewModel viewModel)
     {
         var account = await _context.Accounts.FindAsync(viewModel.Account?.AccountNumber);
         account?.Transactions?.Add(
             new Transaction
             {
-                TransactionType = TransactionType.Deposit,
+                TransactionType = viewModel.TransactionType,
                 Amount = viewModel.Amount,
                 Comment = viewModel.Comment,
                 TransactionTimeUtc = DateTime.UtcNow
@@ -45,7 +52,7 @@ public class AccountManager
         await _context.SaveChangesAsync();
     }
 
-    public async Task WithdrawAsync(TransactionViewModel viewModel)
+    public async Task WithdrawAsync(WithdrawViewModel viewModel)
     {
         var account = await _context.Accounts.FindAsync(viewModel.Account?.AccountNumber);
         account.Balance = await GetAccountBalanceAsync(viewModel.AccountNumber);
@@ -55,17 +62,19 @@ public class AccountManager
             account.Transactions?.Add(
                 new Transaction
                 {
-                    TransactionType = TransactionType.Withdraw,
+                    TransactionType = viewModel.TransactionType,
                     Amount = viewModel.Amount,
                     Comment = viewModel.Comment,
                     TransactionTimeUtc = DateTime.UtcNow
                 });
 
+            if (!account.AvailableFreeTransaction(await GetTransactionCountAsync(account.AccountNumber)))
+                await ServiceChargeAsync(account.AccountNumber, viewModel.TransactionType);
             await _context.SaveChangesAsync();
         }
     }
 
-    public async Task TransferAsync(TransactionViewModel viewModel)
+    public async Task TransferAsync(TransferViewModel viewModel)
     {
         var account = await _context.Accounts.FindAsync(viewModel.Account?.AccountNumber);
         var destinationAccount = await _context.Accounts.FindAsync(viewModel.DestinationAccountNumber);
@@ -73,7 +82,7 @@ public class AccountManager
         account.Transactions?.Add(
             new Transaction
             {
-                TransactionType = TransactionType.Transfer,
+                TransactionType = viewModel.TransactionType,
                 Amount = viewModel.Amount,
                 DestinationAccountNumber = viewModel.DestinationAccountNumber,
                 Comment = viewModel.Comment,
@@ -91,11 +100,26 @@ public class AccountManager
             }
         );
 
+        if (!account.AvailableFreeTransaction(await GetTransactionCountAsync(account.AccountNumber)))
+            await ServiceChargeAsync(account.AccountNumber, viewModel.TransactionType);
         await _context.SaveChangesAsync();
     }
 
-    public async Task BillPayAsync(TransactionViewModel viewModel)
+    public async Task BillPayAsync(BillPayViewModel viewModel)
     {
         var account = await _context.Accounts.FindAsync(viewModel.Account?.AccountNumber);
+    }
+
+    private async Task ServiceChargeAsync(int accountNumber, TransactionType transactionType)
+    {
+        var account = await _context.Accounts.FindAsync(accountNumber);
+
+        account?.Transactions?.Add(
+            new Transaction
+            {
+                TransactionType = TransactionType.ServiceCharge,
+                Amount = Transaction.ServiceCharge[transactionType],
+                TransactionTimeUtc = DateTime.UtcNow
+            });
     }
 }

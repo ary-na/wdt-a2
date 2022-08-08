@@ -34,7 +34,7 @@ public class CustomerController : Controller
 
     public async Task<IActionResult> Deposit(int accountNumber)
     {
-        return View(new TransactionViewModel
+        return View(new DepositViewModel
             {
                 AccountNumber = accountNumber,
                 TransactionType = TransactionType.Deposit,
@@ -44,7 +44,7 @@ public class CustomerController : Controller
     }
 
     [HttpPost]
-    public async Task<IActionResult> Deposit(TransactionViewModel viewModel)
+    public async Task<IActionResult> Deposit(DepositViewModel viewModel)
     {
         // Set view account
         viewModel.Account = await _accountManager.GetAccountAsync(viewModel.AccountNumber);
@@ -61,7 +61,7 @@ public class CustomerController : Controller
 
     public async Task<IActionResult> Withdraw(int accountNumber)
     {
-        return View(new TransactionViewModel
+        return View(new WithdrawViewModel
             {
                 AccountNumber = accountNumber,
                 TransactionType = TransactionType.Withdraw,
@@ -71,7 +71,7 @@ public class CustomerController : Controller
     }
 
     [HttpPost]
-    public async Task<IActionResult> Withdraw(TransactionViewModel viewModel)
+    public async Task<IActionResult> Withdraw(WithdrawViewModel viewModel)
     {
         // Set view account
         viewModel.Account = await _accountManager.GetAccountAsync(viewModel.AccountNumber);
@@ -88,7 +88,7 @@ public class CustomerController : Controller
     
     public async Task<IActionResult> Transfer(int accountNumber)
     {
-        return View(new TransactionViewModel
+        return View(new TransferViewModel
             {
                 AccountNumber = accountNumber,
                 TransactionType = TransactionType.Transfer,
@@ -98,7 +98,7 @@ public class CustomerController : Controller
     }
 
     [HttpPost]
-    public async Task<IActionResult> Transfer(TransactionViewModel viewModel)
+    public async Task<IActionResult> Transfer(TransferViewModel viewModel)
     {
         // Set view account
         viewModel.Account = await _accountManager.GetAccountAsync(viewModel.AccountNumber);

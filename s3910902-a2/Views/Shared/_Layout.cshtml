@@ -67,21 +67,21 @@
 @if (Context.Session.GetInt32(nameof(Customer.CustomerID)).HasValue)
 {
     <nav>
-        <ul class="nav py-1 bg-secondary justify-content-center">
-            <li class="nav-item @Html.ActiveClass("Customer", "")">
+        <ul class="nav py-1 bg-secondary">
+            <li class="nav-item @Html.ActiveClass("Customer", "Index")">
                 <a class="nav-link" asp-area="" asp-controller="Customer" asp-action="Index">Payments</a>
             </li>
-            <li class="nav-item active">
+            <li class="nav-item @Html.ActiveClass("Customer", "Index")">
                 <a class="nav-link" asp-area="" asp-controller="Customer" asp-action="Index">My Statements</a>
             </li>
-            <li class="nav-item active">
+            <li class="nav-item @Html.ActiveClass("Customer", "Index")">
                 <a class="nav-link" asp-area="" asp-controller="Customer" asp-action="Index">My Profile</a>
             </li>
         </ul>
     </nav>
 }
 
-<div class="container flex-grow-1 overflow-scroll">
+<div class="container flex-grow-1 overflow-scroll d-flex justify-content-center align-items-center">
     <main role="main" class="pb-3">
         @RenderBody()
     </main>

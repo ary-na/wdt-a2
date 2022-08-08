@@ -19,7 +19,7 @@
             <tr>
                 <td>@Html.DisplayFor(x => account.AccountNumber)</td>
                 <td>@Html.DisplayFor(x => account.AccountType)</td>
-                <td>@Html.DisplayFor(x => account.Balance)</td>
+                <td>$@Html.DisplayFor(x => account.Balance)</td>
                 <td>
                     <a class="btn btn-sm"
                        asp-action="Deposit" asp-route-accountNumber="@account.AccountNumber">

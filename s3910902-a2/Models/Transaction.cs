@@ -7,6 +7,12 @@ namespace s3910902_a2.Models;
 
 public class Transaction
 {
+    public static readonly Dictionary<TransactionType, decimal> ServiceCharge = new()
+    {
+        { TransactionType.Withdraw, 0.05M },
+        { TransactionType.Transfer, 0.10M }
+    };
+
     public int TransactionID { get; set; }
 
     public TransactionType TransactionType { get; set; }
