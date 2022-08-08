@@ -5,13 +5,13 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace MCBA_Customer.Controllers;
 
-public class CustomerController : Controller
+public class StatementsController : Controller
 {
     private readonly McbaContext _context;
     private readonly AccountManager _accountManager;
     private int CustomerID => HttpContext.Session.GetInt32(nameof(Customer.CustomerID)).Value;
 
-    public CustomerController(McbaContext context, AccountManager accountManager)
+    public StatementsController(McbaContext context, AccountManager accountManager)
     {
         _context = context;
         _accountManager = accountManager;
@@ -26,4 +26,10 @@ public class CustomerController : Controller
 
         return View(customer);
     }
+    
+    public async Task<IActionResult> Statement(int accountNumber, int page = 1)
+    {
+        return View(await _accountManager.GetTransactionsAsync(accountNumber, page));
+    }
+
 }

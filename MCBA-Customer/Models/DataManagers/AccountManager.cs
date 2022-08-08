@@ -1,6 +1,7 @@
 using MCBA_Customer.Data;
 using MCBA_Customer.Models.Types;
 using MCBA_Customer.ViewModels;
+using X.PagedList;
 
 namespace MCBA_Customer.Models.DataManagers;
 
@@ -23,18 +24,27 @@ public class AccountManager
     {
         var accounts = await _context.Accounts.FindAsync(accountNumber);
         return accounts.Transactions
-                   .Where(x => x.TransactionType is TransactionType.Deposit or TransactionType.TransferIncoming)
+                   .Where(x => x.TransactionType is TransactionType.Deposit or TransactionType.TransferIn)
                    .Sum(x => x.Amount) -
                accounts.Transactions
-                   .Where(x => x.TransactionType is not (TransactionType.Deposit or TransactionType.TransferIncoming))
+                   .Where(x => x.TransactionType is not (TransactionType.Deposit or TransactionType.TransferIn))
                    .Sum(x => x.Amount);
+    }
+
+    public async Task<IPagedList<Transaction>> GetTransactionsAsync(int accountNumber, int page)
+    {
+        var accounts = await _context.Accounts.FindAsync(accountNumber);
+        const int pageSize = 4;
+        return await accounts.Transactions
+            .OrderByDescending(x => x.TransactionTimeUtc)
+            .ToPagedListAsync(page, pageSize);
     }
 
     private async Task<int> GetTransactionCountAsync(int accountNumber)
     {
         var accounts = await _context.Accounts.FindAsync(accountNumber);
         return accounts.Transactions.Count(x =>
-            x.TransactionType is TransactionType.Withdraw or TransactionType.Transfer);
+            x.TransactionType is TransactionType.Withdraw or TransactionType.TransferOut);
     }
 
     public async Task DepositAsync(DepositViewModel viewModel)
@@ -93,7 +103,7 @@ public class AccountManager
         destinationAccount?.Transactions?.Add(
             new Transaction
             {
-                TransactionType = TransactionType.TransferIncoming,
+                TransactionType = TransactionType.TransferIn,
                 Amount = viewModel.Amount,
                 Comment = viewModel.Comment,
                 TransactionTimeUtc = DateTime.UtcNow

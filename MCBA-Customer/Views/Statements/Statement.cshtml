@@ -1,0 +1,51 @@
+<!-- 
+// Code sourced and adapted from:
+// https://stackoverflow.com/questions/14356152/pagedlistpager-pass-additional-model-data
+-->
+
+@using X.PagedList
+@using X.PagedList.Mvc.Core
+@using X.PagedList.Web.Common
+@model IPagedList<MCBA_Customer.Models.Transaction>
+@{
+    ViewData["Title"] = "Statement";
+}
+
+<div>
+    <h1>Orders for </h1>
+    <table class="table">
+        <tr class="text-muted">
+            <th>@Html.DisplayNameFor(x => x[0].TransactionID)</th>
+            <th>@Html.DisplayNameFor(x => x[0].TransactionType)</th>
+            <th>@Html.DisplayNameFor(x => x[0].AccountNumber)</th>
+            <th>@Html.DisplayNameFor(x => x[0].DestinationAccountNumber)</th>
+            <th>@Html.DisplayNameFor(x => x[0].Amount)</th>
+            <th>@Html.DisplayNameFor(x => x[0].Comment)</th>
+            <th>@Html.DisplayNameFor(x => x[0].TransactionTimeUtc)</th>
+        </tr>
+        @foreach (var transaction in Model)
+        {
+            var transactionTimeLocal = transaction.TransactionTimeUtc.ToLocalTime().ToString("dd/MM/yyyy HH:mm tt");
+            <tr>
+                <td>@Html.DisplayFor(x => transaction.TransactionID)</td>
+                <td>@Html.DisplayFor(x => transaction.TransactionType)</td>
+                <td>@Html.DisplayFor(x => transaction.AccountNumber)</td>
+                <td>@Html.DisplayFor(x => transaction.DestinationAccountNumber)</td>
+                <td>$@Html.DisplayFor(x => transaction.Amount)</td>
+                <td>@Html.DisplayFor(x => transaction.Comment)</td>
+                <td>@Html.DisplayFor(x => transactionTimeLocal)</td>
+            </tr>
+        }
+    </table>
+
+    @Html.PagedListPager(Model, page => Url.Action("Statement", new { Model[0].AccountNumber , page }),
+        new PagedListRenderOptions
+        {
+            LiElementClasses = new[] { "page-item" },
+            PageClasses = new[] { "page-link" }
+        })
+</div>
+
+<div>
+    <a asp-action="Index">Back to Customers</a>
+</div>
