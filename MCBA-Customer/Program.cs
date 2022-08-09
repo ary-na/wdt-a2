@@ -1,5 +1,6 @@
 using MCBA_Customer.Data;
 using MCBA_Customer.Filters;
+using MCBA_Customer.Models;
 using MCBA_Customer.Models.DataManagers;
 using MCBA_Customer.Services;
 using Microsoft.EntityFrameworkCore;
@@ -17,6 +18,8 @@ builder.Services.AddDbContext<McbaContext>(options =>
     options.UseLazyLoadingProxies();
 });
 
+builder.Services.AddScoped<CustomerManager>();
+builder.Services.AddScoped<LoginManager>();
 builder.Services.AddScoped<AccountManager>();
 
 builder.Services.AddDistributedSqlServerCache(options =>
@@ -51,7 +54,7 @@ using (var scope = app.Services.CreateScope())
     try
     {
         await CustomerWebService.GetAndSaveCustomersAsync(services);
-        await SeedPayeesData.InitializePayees(services);
+        await SeedPayeesData.InitializePayeesAsync(services);
     }
     catch (Exception e)
     {

@@ -1,0 +1,78 @@
+@model MCBA_Customer.ViewModels.EditProfileViewModel
+@{
+    ViewData["Title"] = "Edit Profile";
+}
+
+<div class="d-flex flex-column border rounded w-75">
+    <h1 class="text-muted p-xl-5">Edit Profile</h1>
+
+    <form asp-action="EditProfile">
+        <div class="row px-xl-5">
+            <div class="col">
+
+                <input type="hidden" asp-for="CustomerID"/>
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <div class="mb-3">
+                    <label asp-for="Name" class="form-label"></label>
+                    <input type="text" asp-for="Name" class="form-control">
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="TFN" class="form-label"></label>
+                    <input type="text" asp-for="TFN" class="form-control">
+                    <span asp-validation-for="TFN" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Mobile" class="form-label"></label>
+                    <input type="text" asp-for="Mobile" class="form-control">
+                    <span asp-validation-for="Mobile" class="text-danger"></span>
+                </div>
+
+            </div>
+
+            <div class="col">
+                <div class="mb-3">
+                    <label asp-for="Address" class="form-label"></label>
+                    <input type="text" asp-for="Address" class="form-control">
+                    <span asp-validation-for="Address" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="City" class="form-label"></label>
+                    <input type="text" asp-for="City" class="form-control">
+                    <span asp-validation-for="City" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="State" class="form-label"></label>
+                    <input type="text" asp-for="State" class="form-control">
+                    <span asp-validation-for="State" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Postcode" class="form-label"></label>
+                    <input type="text" asp-for="Postcode" class="form-control">
+                    <span asp-validation-for="Postcode" class="text-danger"></span>
+                </div>
+
+            </div>
+
+            <div class="mb-3 d-flex align-content-end justify-content-end">
+                <button type="submit" class="btn btn-outline-primary">Update</button>
+            </div>
+        </div>
+    </form>
+
+
+    <div class="d-flex justify-content-end align-content-end p-xl-5">
+        <a class="text-decoration-none text-muted" asp-action="Index">Back to My Profile</a>
+    </div>
+</div>
+
+@section Scripts {
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+
+}

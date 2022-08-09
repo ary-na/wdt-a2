@@ -1,29 +1,65 @@
 using MCBA_Customer.Data;
 using MCBA_Customer.Models;
 using MCBA_Customer.Models.DataManagers;
+using MCBA_Customer.ViewModels;
+using MCBA_Customer.ViewModels.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MCBA_Customer.Controllers;
 
 public class CustomerController : Controller
 {
-    private readonly McbaContext _context;
-    private readonly AccountManager _accountManager;
+    private readonly CustomerManager _customerManager;
+    private readonly LoginManager _loginManager;
     private int CustomerID => HttpContext.Session.GetInt32(nameof(Customer.CustomerID)).Value;
 
-    public CustomerController(McbaContext context, AccountManager accountManager)
+    public CustomerController(CustomerManager customerManager, LoginManager loginManager)
     {
-        _context = context;
-        _accountManager = accountManager;
+        _customerManager = customerManager;
+        _loginManager = loginManager;
     }
 
     public async Task<IActionResult> Index()
     {
-        var customer = await _context.Customers.FindAsync(CustomerID);
+        return View(await _customerManager.GetCustomerAsync(CustomerID));
+    }
 
-        foreach (var account in customer.Accounts)
-            account.Balance = await _accountManager.GetAccountBalanceAsync(account.AccountNumber);
+    public async Task<IActionResult> EditProfile(int customerID)
+    {
+        return View(new EditProfileViewModel
+        {
+            CustomerID = customerID
+        });
+    }
 
-        return View(customer);
+    [HttpPost]
+    public async Task<IActionResult> EditProfile(EditProfileViewModel viewModel)
+    {
+        // Check model state
+        if (!ModelState.IsValid)
+            return View(viewModel);
+
+        await _customerManager.EditProfileAsync(viewModel);
+        return RedirectToAction(nameof(Index));
+    }
+
+    public async Task<IActionResult> ChangePassword(int customerID)
+    {
+        return View(new ChangePasswordViewModel()
+            {
+                CustomerID = customerID,
+            }
+        );
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> ChangePassword(ChangePasswordViewModel viewModel)
+    {
+        // Check model state
+        if (!ModelState.IsValid)
+            return View(viewModel);
+
+        await _loginManager.ChangePasswordAsync(viewModel);
+        return RedirectToAction(nameof(Index));
     }
 }

@@ -1,0 +1,44 @@
+@model MCBA_Customer.Models.Customer
+@{
+    ViewData["Title"] = "My Profile";
+}
+
+<div class="d-flex flex-column border rounded w-75">
+    <h1 class="text-muted p-xl-5">My Profile</h1>
+    <div class="row p-xl-5">
+        <div class="col">
+            <h4 class="text-muted">Personal Details</h4>
+            <ul class="list-unstyled">
+                <li>
+                    <span class="text-muted">Name:</span> @Model.Name
+                </li>
+                <li>
+                    <span class="text-muted">TFN:</span> @Model.TFN
+                </li>
+                <li>
+                    <span class="text-muted">Mobile:</span> @Model.Mobile
+                </li>
+            </ul>
+        </div>
+
+        <div class="col">
+            <h4 class="text-muted">Address</h4>
+            <ul class="list-unstyled">
+                <li>@Model.Address</li>
+                <li>@Model.City</li>
+                <li>@Model.State</li>
+                <li>@Model.Postcode</li>
+            </ul>
+        </div>
+    </div>
+    <div class="d-flex justify-content-end align-content-end">
+        <a class="btn btn-outline-primary mb-xl-5 me-1"
+           asp-action="EditProfile" asp-route-customerID="@Model.CustomerID">
+            Edit Profile
+        </a>
+        <a class="btn btn-outline-primary me-xl-5 mb-xl-5"
+           asp-action="ChangePassword" asp-route-customerID="@Model.CustomerID">
+            Change Password
+        </a>
+    </div>
+</div>

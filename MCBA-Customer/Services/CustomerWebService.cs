@@ -65,7 +65,7 @@ public static class CustomerWebService
                 Name = customer.Name,
                 Address = customer.Address,
                 City = customer.City,
-                PostCode = customer.PostCode
+                Postcode = customer.PostCode
             });
 
             await context.Logins.AddAsync(new Login

@@ -1,7 +1,7 @@
 using MCBA_Customer.Models;
 using MCBA_Customer.Models.Types;
 
-namespace MCBA_Customer.ViewModels;
+namespace MCBA_Customer.ViewModels.Interfaces;
 
 public interface ITransactionViewModel
 {

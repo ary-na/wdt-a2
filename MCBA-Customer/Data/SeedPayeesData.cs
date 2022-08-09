@@ -7,7 +7,7 @@ namespace MCBA_Customer.Data;
 
 public static class SeedPayeesData
 {
-    public static async Task InitializePayees(IServiceProvider serviceProvider)
+    public static async Task InitializePayeesAsync(IServiceProvider serviceProvider)
     {
         var context = serviceProvider.GetRequiredService<McbaContext>();
 
