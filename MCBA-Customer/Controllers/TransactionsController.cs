@@ -1,4 +1,3 @@
-using MCBA_Customer.Data;
 using MCBA_Customer.Models;
 using MCBA_Customer.Models.DataManagers;
 using MCBA_Customer.Models.Types;
@@ -14,19 +13,19 @@ namespace MCBA_Customer.Controllers;
 
 public class TransactionsController : Controller
 {
-    private readonly McbaContext _context;
+    private readonly CustomerManager _customerManager;
     private readonly AccountManager _accountManager;
     private int CustomerID => HttpContext.Session.GetInt32(nameof(Customer.CustomerID)).Value;
 
-    public TransactionsController(McbaContext context, AccountManager accountManager)
+    public TransactionsController(CustomerManager customerManager, AccountManager accountManager)
     {
-        _context = context;
+        _customerManager = customerManager;
         _accountManager = accountManager;
     }
 
     public async Task<IActionResult> Index()
     {
-        var customer = await _context.Customers.FindAsync(CustomerID);
+        var customer = await _customerManager.GetCustomerAsync(CustomerID);
 
         foreach (var account in customer.Accounts)
             account.Balance = await _accountManager.GetAccountBalanceAsync(account.AccountNumber);

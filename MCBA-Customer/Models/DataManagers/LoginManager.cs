@@ -14,6 +14,14 @@ public class LoginManager
     private readonly McbaContext _context;
     public LoginManager(McbaContext context) => _context = context;
 
+    public async Task<Login> GetLoginAsync(string? loginID) => await _context.Logins.FindAsync(loginID);
+    
+    public async Task<bool> IsLoggedInAsync(ILoginViewModel viewModel)
+    {
+        var login = await GetLoginAsync(viewModel.LoginID);
+        return login != null && !string.IsNullOrEmpty(viewModel.Password) && PBKDF2.Verify(login.PasswordHash, viewModel.Password);
+    }
+
     public async Task ChangePasswordAsync(ILoginViewModel viewModel)
     {
         var login = await _context.Logins.Where(x => x.CustomerID == viewModel.CustomerID).FirstAsync();

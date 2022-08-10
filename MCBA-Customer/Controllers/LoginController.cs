@@ -1,5 +1,6 @@
 using MCBA_Customer.Data;
 using MCBA_Customer.Models;
+using MCBA_Customer.Models.DataManagers;
 using MCBA_Customer.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -10,17 +11,17 @@ namespace MCBA_Customer.Controllers;
 [AllowAnonymous]
 public class LoginController : Controller
 {
-    private readonly McbaContext _context;
+    private readonly LoginManager _loginManager;
 
-    public LoginController(McbaContext context) => _context = context;
+    public LoginController(LoginManager loginManager) => _loginManager = loginManager;
 
     public IActionResult Login() => View();
 
     [HttpPost]
     public async Task<IActionResult> Login(LoginViewModel viewModel)
     {
-        var login = await _context.Logins.FindAsync(viewModel.LoginID);
-        if (login == null || string.IsNullOrEmpty(viewModel.Password) || !PBKDF2.Verify(login.PasswordHash, viewModel.Password))
+        var login = await _loginManager.GetLoginAsync(viewModel.LoginID);
+        if (!await _loginManager.IsLoggedInAsync(viewModel))
         {
             ModelState.AddModelError("LoginFailed", "Login failed, please try again.");
             return View(new LoginViewModel { LoginID = viewModel.LoginID });
