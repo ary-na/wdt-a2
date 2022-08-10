@@ -1,8 +1,8 @@
 namespace MCBA_Customer.Models.Types;
 
-public enum BillPayState
+public enum BillPayStatus
 {
     Pending = 1,
-    Completed = 2,
+    Paid = 2,
     Failed = 3
 }

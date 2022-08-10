@@ -1,5 +1,38 @@
-@import 'abstracts/variables';
-@import 'abstracts/buttons';
+@import "abstracts/colors";
+@import "abstracts/fonts";
+
+/* Sass Variables *************************************************/
+
+$primary: $color-purple-primary;
+$secondary: $color-purple-secondary;
+$success: $green;
+$info: $cyan;
+$warning: $yellow;
+$danger: $red;
+$light: $gray-100;
+$dark: $gray-900;
+
+$theme-colors: (
+        "primary": $primary,
+        "secondary": $secondary,
+        "success": $success,
+        "info": $info,
+        "warning": $warning,
+        "danger": $danger,
+        "light": $light,
+        "dark": $dark
+);
+
+/* Nav */
+$navbar-toggler-focus-width: 1px;
+$nav-link-color: $color-purple-primary;
+$nav-link-hover-color: white;
+
+/* Pagination */
+$pagination-focus-color: $color-purple-primary;
+
+/******************************************************************/
+
 @import "../node_modules/bootstrap/scss/bootstrap";
 
 /*
@@ -13,6 +46,7 @@
 }
 
 body, html {
+  font-family: $font-family-primary;
   margin: 0;
   padding: 0;
 }

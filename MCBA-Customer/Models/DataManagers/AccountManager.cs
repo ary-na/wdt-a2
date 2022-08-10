@@ -47,6 +47,15 @@ public class AccountManager
             x.TransactionType is TransactionType.Withdraw or TransactionType.TransferOut);
     }
 
+    public async Task<IPagedList<BillPay>> GetBillPaysAsync(int accountNumber, int page)
+    {
+        var accounts = await _context.Accounts.FindAsync(accountNumber);
+        const int pageSize = 4;
+        return await accounts.BillPays
+            .OrderByDescending(x => x.ScheduleTimeUtc)
+            .ToPagedListAsync(page, pageSize);
+    }
+
     public async Task DepositAsync(DepositViewModel viewModel)
     {
         var account = await _context.Accounts.FindAsync(viewModel.Account?.AccountNumber);
@@ -115,11 +124,6 @@ public class AccountManager
         await _context.SaveChangesAsync();
     }
 
-    public async Task BillPayAsync(BillPayViewModel viewModel)
-    {
-        var account = await _context.Accounts.FindAsync(viewModel.Account?.AccountNumber);
-    }
-
     private async Task ServiceChargeAsync(int accountNumber, TransactionType transactionType)
     {
         var account = await _context.Accounts.FindAsync(accountNumber);
@@ -131,5 +135,21 @@ public class AccountManager
                 Amount = Transaction.ServiceCharge[transactionType],
                 TransactionTimeUtc = DateTime.UtcNow
             });
+    }
+
+    public async Task BillPayAsync(BillPayViewModel viewModel)
+    {
+        var account = await _context.Accounts.FindAsync(viewModel.Account?.AccountNumber);
+        account?.BillPays.Add(
+            new BillPay
+            {
+                PayeeID = viewModel.PayeeID,
+                Amount = viewModel.Amount,
+                ScheduleTimeUtc = viewModel.ScheduleTimeUtc,
+                Period = viewModel.Period,
+                BillStatus = BillPayStatus.Pending
+            });
+
+        await _context.SaveChangesAsync();
     }
 }

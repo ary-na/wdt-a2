@@ -10,6 +10,8 @@ namespace MCBA_Customer.Controllers;
 // Code sourced and adapted from:
 // Week 5 Lectorial - HomeController.cs
 
+// https://stackoverflow.com/questions/32072764/how-to-call-one-action-method-from-another-action-methodboth-are-in-the-same-co
+
 public class TransactionsController : Controller
 {
     private readonly McbaContext _context;
@@ -111,5 +113,36 @@ public class TransactionsController : Controller
         // Insert transaction
         await _accountManager.TransferAsync(viewModel);
         return RedirectToAction(nameof(Index));
+    }
+    
+    public async Task<IActionResult> BillPays(int accountNumber, int page = 1)
+    {
+        ViewBag.AccountNumber = accountNumber;
+        return View(await _accountManager.GetBillPaysAsync(accountNumber, page));
+    }
+    
+    public async Task<IActionResult> BillPay(int accountNumber)
+    {
+        return View(new BillPayViewModel()
+            {
+                AccountNumber = accountNumber,
+                Account = await _accountManager.GetAccountAsync(accountNumber)
+            }
+        );
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> BillPay(BillPayViewModel viewModel)
+    {
+        // Set view account
+        viewModel.Account = await _accountManager.GetAccountAsync(viewModel.AccountNumber);
+
+        // Check model state
+        if (!ModelState.IsValid)
+            return View(viewModel);
+
+        // Insert transaction
+        await _accountManager.BillPayAsync(viewModel);
+        return RedirectToAction(nameof(BillPays), new { accountNumber = viewModel.AccountNumber});
     }
 }

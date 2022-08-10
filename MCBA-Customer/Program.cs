@@ -21,6 +21,7 @@ builder.Services.AddDbContext<McbaContext>(options =>
 builder.Services.AddScoped<CustomerManager>();
 builder.Services.AddScoped<LoginManager>();
 builder.Services.AddScoped<AccountManager>();
+builder.Services.AddScoped<PayeeManager>();
 
 builder.Services.AddDistributedSqlServerCache(options =>
 {

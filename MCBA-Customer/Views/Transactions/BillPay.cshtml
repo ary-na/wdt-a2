@@ -1,0 +1,75 @@
+<!-- 
+// Code source and adapted from:
+// https://chikkanti.wordpress.com/2015/04/05/radiobutton-list-with-enum-and-model-in-mvc-5/
+// https://www.w3schools.com/tags/att_input_type_datetime-local.asp
+-->
+
+@using MCBA_Customer.Models.Types
+@model MCBA_Customer.ViewModels.BillPayViewModel
+@{
+    ViewData["Title"] = "Bill Pay";
+}
+
+<div class="d-flex flex-column border rounded w-75">
+    <h1 class="text-muted p-xl-5">Bill Pay</h1>
+
+    <form asp-action="BillPay">
+        <div class="row px-xl-5">
+            <div class="col">
+                <input type="hidden" asp-for="AccountNumber"/>
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <div class="mb-3">
+                    <label asp-for="PayeeID" class="form-label"></label>
+                    @await Component.InvokeAsync("Payees")
+                    <span asp-validation-for="PayeeID" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Amount" class="form-label"></label>
+                    <input type="text" asp-for="Amount" class="form-control">
+                    <span asp-validation-for="Amount" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="mb-3">
+                    <label asp-for="ScheduleTimeUtc" class="form-label"></label>
+                    <input type="datetime-local" asp-for="ScheduleTimeUtc" class="form-control">
+                    <span asp-validation-for="ScheduleTimeUtc" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Period" class="form-label"></label>
+                    <div class="form-control-plaintext">
+                        <div class="form-check-inline">
+
+                            @Html.RadioButtonFor(x => x.Period, BillPayPeriod.OneOff)
+                            @Html.Label(nameof(BillPayPeriod.OneOff))
+                        </div>
+                        <div class="form-check-inline">
+
+                            @Html.RadioButtonFor(x => x.Period, BillPayPeriod.Monthly)
+                            @Html.Label(nameof(BillPayPeriod.Monthly))
+                        </div>
+                    </div>
+                    <span asp-validation-for="Period" class="text-danger"></span>
+
+                </div>
+            </div>
+
+            <div class="mb-3 d-flex align-content-end justify-content-end">
+                <button type="submit" class="btn btn-outline-primary">Schedule</button>
+            </div>
+        </div>
+    </form>
+
+    <div class="d-flex justify-content-end align-content-end p-xl-5">
+        <a class="text-decoration-none text-muted" asp-action="BillPays" asp-route-accountNumber="@Model.AccountNumber">Back to Bill Pays</a>
+    </div>
+</div>
+
+@section Scripts {
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+
+}

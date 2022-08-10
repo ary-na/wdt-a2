@@ -1,0 +1,11 @@
+<!-- 
+// Code sourced and adapted form:
+// https://www.codeproject.com/Questions/1180291/How-to-populate-HTML-helper-dropdownlist-or-dropdo
+// https://www.aspsnippets.com/Articles/ASPNet-Core-Get-selected-Value-of-DropDownList.aspx
+-->
+
+@model SelectList
+
+<select name="PayeeID" asp-items="Model" class="form-control">
+    <option value="0">Select Payee</option>
+</select>
