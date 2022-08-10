@@ -1,5 +1,4 @@
 using MCBA_Customer.Data;
-using MCBA_Customer.ViewModels;
 using MCBA_Customer.ViewModels.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using SimpleHashing;

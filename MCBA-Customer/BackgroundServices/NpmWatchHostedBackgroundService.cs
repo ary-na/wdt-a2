@@ -1,21 +1,21 @@
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 
-namespace MCBA_Customer.Services;
+namespace MCBA_Customer.BackgroundServices;
 
 // Code sourced and adapted from:
 // https://levelup.gitconnected.com/use-sass-in-an-asp-net-mvc-application-207811b61048
 // https://github.com/koenvzeijl/sass-aspnet-mvc
 
 #if DEBUG
-    internal sealed class NpmWatchHostedService : IHostedService, IDisposable
+    internal sealed class NpmWatchHostedBackgroundService : IHostedService, IDisposable
     {
         private readonly bool _enabled;
-        private readonly ILogger<NpmWatchHostedService> _logger;
+        private readonly ILogger<NpmWatchHostedBackgroundService> _logger;
 
         private Process _process;
 
-        public NpmWatchHostedService(bool enabled, ILogger<NpmWatchHostedService> logger)
+        public NpmWatchHostedBackgroundService(bool enabled, ILogger<NpmWatchHostedBackgroundService> logger)
         {
             _enabled = enabled;
             _logger = logger;
@@ -87,7 +87,7 @@ namespace MCBA_Customer.Services;
             _process.Dispose();
             _process = null;
 
-            _logger.LogWarning("npm watch exited, restarting in 1 second.");
+            _logger.LogWarning("npm watch exited, restarting in 1 second");
 
             await Task.Delay(1000);
             StartProcess();

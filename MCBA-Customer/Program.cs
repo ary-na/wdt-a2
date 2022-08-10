@@ -1,6 +1,6 @@
+using MCBA_Customer.BackgroundServices;
 using MCBA_Customer.Data;
 using MCBA_Customer.Filters;
-using MCBA_Customer.Models;
 using MCBA_Customer.Models.DataManagers;
 using MCBA_Customer.Services;
 using Microsoft.EntityFrameworkCore;
@@ -41,10 +41,12 @@ builder.Services.AddControllersWithViews(options => options.Filters.Add(new Auth
 
 // Add Npm service to the container
 #if DEBUG
-builder.Services.AddHostedService(sp => new NpmWatchHostedService(
+builder.Services.AddHostedService(sp => new NpmWatchHostedBackgroundService(
     enabled: sp.GetRequiredService<IWebHostEnvironment>().IsDevelopment(),
-    logger: sp.GetRequiredService<ILogger<NpmWatchHostedService>>()));
+    logger: sp.GetRequiredService<ILogger<NpmWatchHostedBackgroundService>>()));
 #endif
+
+builder.Services.AddHostedService<BillPayBackgroundService>();
 
 var app = builder.Build();
 

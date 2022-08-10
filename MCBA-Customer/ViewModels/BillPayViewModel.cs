@@ -11,14 +11,14 @@ public class BillPayViewModel
     public Account? Account { get; set; }
     public int AccountNumber { get; set; }
     
-    [Required, DisplayName("Payee"), InvalidPayee]
+    [Required, PayeeNotSelected, DisplayName("Payee")]
     public int PayeeID { get; set; }
 
     [HasMoreThanTwoDecimalPlaces, LessThanOrEqualToZero]
     public decimal Amount { get; set; }
 
-    [DisplayName("Schedule Time")]
-    public DateTime ScheduleTimeUtc { get; set; }
+    [DateInThePast, DisplayName("Schedule Time")]
+    public DateTime ScheduleTime { get; set; }
     
     public BillPayPeriod Period { get; set; }
 }
