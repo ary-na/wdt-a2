@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using MCBA_Model.Models.Types;
 
 namespace MCBA_Model.Models;
 
@@ -14,4 +15,6 @@ public class Login
     
     [Required, Column(TypeName = "char"), StringLength(64)]
     public string? PasswordHash { get; set; }
+    
+    public LoginState? LoginState { get; set; }
 }

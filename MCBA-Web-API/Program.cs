@@ -1,7 +1,9 @@
+using MCBA_Web_API.Models.DataManagers;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
+builder.Services.AddScoped<CustomerManager>();
 
 builder.Services.AddControllers();
 
