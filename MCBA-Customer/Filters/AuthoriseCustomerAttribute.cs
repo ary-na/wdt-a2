@@ -1,4 +1,4 @@
-using MCBA_Customer.Models;
+using MCBA_Model.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;

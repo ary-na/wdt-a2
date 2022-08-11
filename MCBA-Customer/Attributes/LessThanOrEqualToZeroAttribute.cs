@@ -1,5 +1,5 @@
 using System.ComponentModel.DataAnnotations;
-using MCBA_Customer.Utilities;
+using MCBA_Model.Utilities;
 
 namespace MCBA_Customer.Attributes;
 

@@ -1,7 +1,6 @@
 using MCBA_Customer.Data;
-using MCBA_Customer.Models;
-using MCBA_Customer.Models.DataManagers;
-using MCBA_Customer.Models.Types;
+using MCBA_Model.Models;
+using MCBA_Model.Models.Types;
 using Microsoft.EntityFrameworkCore;
 
 namespace MCBA_Customer.BackgroundServices;

@@ -1,9 +1,10 @@
 using MCBA_Customer.Data;
 using MCBA_Customer.ViewModels.Interfaces;
+using MCBA_Model.Models;
 using Microsoft.EntityFrameworkCore;
 using SimpleHashing;
 
-namespace MCBA_Customer.Models.DataManagers;
+namespace MCBA_Customer.DataManagers;
 
 // Code sourced and adapted from:
 // https://github.com/Job79/SimpleHashing

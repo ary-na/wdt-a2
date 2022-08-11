@@ -1,4 +1,4 @@
-namespace MCBA_Customer.Models.Types;
+namespace MCBA_Model.Models.Types;
 
 public enum AccountType
 {

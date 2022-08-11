@@ -1,10 +1,9 @@
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using MCBA_Customer.Attributes;
-using MCBA_Customer.Models.Types;
+using MCBA_Model.Models.Types;
 
-namespace MCBA_Customer.Models;
+namespace MCBA_Model.Models;
 
 public class Transaction
 {
@@ -28,7 +27,7 @@ public class Transaction
 
     public virtual Account? DestinationAccount { get; set; }
 
-    [Column(TypeName = "money"), HasMoreThanTwoDecimalPlaces, LessThanOrEqualToZero]
+    [Column(TypeName = "money")]
     public decimal Amount { get; set; }
 
     [StringLength(30, ErrorMessage = "Comment exceeded maximum length")]

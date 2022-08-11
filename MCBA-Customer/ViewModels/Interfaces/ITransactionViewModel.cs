@@ -1,5 +1,5 @@
-using MCBA_Customer.Models;
-using MCBA_Customer.Models.Types;
+using MCBA_Model.Models;
+using MCBA_Model.Models.Types;
 
 namespace MCBA_Customer.ViewModels.Interfaces;
 

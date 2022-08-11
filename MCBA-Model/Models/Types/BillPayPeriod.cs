@@ -1,4 +1,4 @@
-namespace MCBA_Customer.Models.Types;
+namespace MCBA_Model.Models.Types;
 
 // Code sourced and adapted from:
 // Week 7 Lectorial - Types.cs

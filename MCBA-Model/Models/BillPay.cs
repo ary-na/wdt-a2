@@ -1,9 +1,9 @@
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using MCBA_Customer.Models.Types;
+using MCBA_Model.Models.Types;
 
-namespace MCBA_Customer.Models;
+namespace MCBA_Model.Models;
 
 public class BillPay
 {

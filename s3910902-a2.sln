@@ -2,6 +2,10 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MCBA-Customer", "MCBA-Customer\MCBA-Customer.csproj", "{E11DC710-411F-460B-B3FA-85E5CA252E2C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MCBA-Web-API", "MCBA-Web-API\MCBA-Web-API.csproj", "{649F4A86-16EA-433E-8E28-B11200228C6F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MCBA-Model", "MCBA-Model\MCBA-Model.csproj", "{3610B343-3FB6-4987-B807-FF92C6093FB8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +16,13 @@ Global
 		{E11DC710-411F-460B-B3FA-85E5CA252E2C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E11DC710-411F-460B-B3FA-85E5CA252E2C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E11DC710-411F-460B-B3FA-85E5CA252E2C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{649F4A86-16EA-433E-8E28-B11200228C6F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{649F4A86-16EA-433E-8E28-B11200228C6F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{649F4A86-16EA-433E-8E28-B11200228C6F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{649F4A86-16EA-433E-8E28-B11200228C6F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3610B343-3FB6-4987-B807-FF92C6093FB8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3610B343-3FB6-4987-B807-FF92C6093FB8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3610B343-3FB6-4987-B807-FF92C6093FB8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3610B343-3FB6-4987-B807-FF92C6093FB8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

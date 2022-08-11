@@ -1,4 +1,4 @@
-using MCBA_Customer.Models.DataManagers;
+using MCBA_Customer.DataManagers;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 

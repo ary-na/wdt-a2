@@ -11,8 +11,6 @@
 // Temp
 // https://levelup.gitconnected.com/using-asp-net-mvc-to-specify-which-element-in-a-navigation-bar-is-active-9c3dac154f9c
 -->
-@using MCBA_Customer.Models
-@using MCBA_Customer.Utilities
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -68,13 +66,13 @@
 {
     <nav>
         <ul class="nav py-1 bg-secondary">
-            <li class="nav-item @Html.ActiveClass("Customer", "Index")">
+            <li class="nav-item">
                 <a class="nav-link" asp-area="" asp-controller="Transactions" asp-action="Index">Payments</a>
             </li>
-            <li class="nav-item @Html.ActiveClass("Statements", "Index")">
+            <li class="nav-item">
                 <a class="nav-link" asp-area="" asp-controller="Statements" asp-action="Index">My Statements</a>
             </li>
-            <li class="nav-item @Html.ActiveClass("Customer", "Index")">
+            <li class="nav-item">
                 <a class="nav-link" asp-area="" asp-controller="Customer" asp-action="Index">My Profile</a>
             </li>
         </ul>

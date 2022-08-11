@@ -1,7 +1,7 @@
 using MCBA_Customer.Data;
 using MCBA_Customer.DTOs;
-using MCBA_Customer.Models;
-using MCBA_Customer.Models.Types;
+using MCBA_Model.Models;
+using MCBA_Model.Models.Types;
 using Newtonsoft.Json;
 
 namespace MCBA_Customer.Services;

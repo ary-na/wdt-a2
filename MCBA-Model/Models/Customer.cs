@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace MCBA_Customer.Models;
+namespace MCBA_Model.Models;
 
 // Code sourced and adapted from:
 // Week 4 Tutorial - Movie.cs

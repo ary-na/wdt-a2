@@ -1,9 +1,9 @@
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using MCBA_Customer.Attributes;
-using MCBA_Customer.Models;
-using MCBA_Customer.Models.Types;
 using MCBA_Customer.ViewModels.Interfaces;
+using MCBA_Model.Models;
+using MCBA_Model.Models.Types;
 
 namespace MCBA_Customer.ViewModels;
 

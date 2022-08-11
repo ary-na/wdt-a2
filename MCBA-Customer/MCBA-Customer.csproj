@@ -84,4 +84,8 @@
       <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\.DS_Store" />
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\MCBA-Model\MCBA-Model.csproj" />
+    </ItemGroup>
+
 </Project>

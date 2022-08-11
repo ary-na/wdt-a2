@@ -1,9 +1,13 @@
 using MCBA_Customer.BackgroundServices;
 using MCBA_Customer.Data;
+using MCBA_Customer.DataManagers;
 using MCBA_Customer.Filters;
-using MCBA_Customer.Models.DataManagers;
 using MCBA_Customer.Services;
 using Microsoft.EntityFrameworkCore;
+
+// Code sourced and adapted from:
+// https://docs.microsoft.com/en-us/ef/core/managing-schemas/migrations/projects?tabs=dotnet-core-cli
+// https://mycodingtips.com/2021/9/21/your-target-project-projectname-doesnt-match-your-migrations-assembly-assemblyname-either-chang
 
 var builder = WebApplication.CreateBuilder(args);
 

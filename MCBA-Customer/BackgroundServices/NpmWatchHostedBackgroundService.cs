@@ -8,9 +8,9 @@ namespace MCBA_Customer.BackgroundServices;
 // https://github.com/koenvzeijl/sass-aspnet-mvc
 
 #if DEBUG
-    internal sealed class NpmWatchHostedBackgroundService : IHostedService, IDisposable
-    {
-        private readonly bool _enabled;
+internal sealed class NpmWatchHostedBackgroundService : IHostedService, IDisposable
+{
+  private readonly bool _enabled;
         private readonly ILogger<NpmWatchHostedBackgroundService> _logger;
 
         private Process _process;
@@ -44,7 +44,7 @@ namespace MCBA_Customer.BackgroundServices;
 
         public void Dispose()
         {
-            _process.Dispose();
+            _process?.Dispose();
             _process = null;
         }
 
@@ -73,7 +73,7 @@ namespace MCBA_Customer.BackgroundServices;
                     _logger.LogError(args.Data);
             };
 
-            _process.Exited += HandleProcessExitAsync;
+            _process.Exited += HandleProcessExit;
 
             _process.Start();
             _process.BeginOutputReadLine();
@@ -82,7 +82,7 @@ namespace MCBA_Customer.BackgroundServices;
             _logger.LogInformation("Started NPM watch");
         }
 
-        private async void HandleProcessExitAsync(object sender, object args)
+        private async void HandleProcessExit(object sender, object args)
         {
             _process.Dispose();
             _process = null;
@@ -93,4 +93,4 @@ namespace MCBA_Customer.BackgroundServices;
             StartProcess();
         }
     }
-#endif 
+#endif

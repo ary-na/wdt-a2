@@ -1,4 +1,4 @@
-using MCBA_Customer.Models;
+using MCBA_Model.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace MCBA_Customer.Data;

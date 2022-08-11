@@ -1,11 +1,13 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using MCBA_Customer.Models.Types;
+using MCBA_Model.Models.Types;
 
-namespace MCBA_Customer.Models;
+namespace MCBA_Model.Models;
 
 // Code sourced and adapted from:
 // Week 10 Lectorial - Account.cs
+
+// https://docs.microsoft.com/en-us/dotnet/core/tutorials/library-with-visual-studio?pivots=dotnet-6-0
 
 public class Account
 {

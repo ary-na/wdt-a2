@@ -1,8 +1,6 @@
-using MCBA_Customer.Data;
-using MCBA_Customer.Models;
-using MCBA_Customer.Models.DataManagers;
+using MCBA_Customer.DataManagers;
 using MCBA_Customer.ViewModels;
-using MCBA_Customer.ViewModels.Interfaces;
+using MCBA_Model.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MCBA_Customer.Controllers;
