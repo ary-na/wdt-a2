@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <RootNamespace>MCBA_Model</RootNamespace>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="7.0.0-preview.6.22329.4" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.0-preview.6.22329.4" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.0-preview.6.22329.4">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="Microsoft.Extensions.Caching.SqlServer" Version="7.0.0-preview.6.22330.3" />
+        <PackageReference Include="Newtonsoft.Json" Version="13.0.2-beta1" />
+        <PackageReference Include="SimpleHashing" Version="2.0.0.1" />
+        <PackageReference Include="X.PagedList.Mvc.Core" Version="8.4.3" />
+    </ItemGroup>
+
+</Project>
