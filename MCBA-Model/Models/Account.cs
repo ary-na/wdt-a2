@@ -1,3 +1,4 @@
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using MCBA_Model.Models.Types;
@@ -19,9 +20,10 @@ public class Account
         { AccountType.Checking, 300 }
     };
 
-    [Key, DatabaseGenerated(DatabaseGeneratedOption.None)]
+    [Key, DatabaseGenerated(DatabaseGeneratedOption.None), DisplayName("Account Number")]
     public int AccountNumber { get; set; }
 
+    [DisplayName("Account Type")]
     public AccountType AccountType { get; set; }
 
     public int CustomerID { get; set; }

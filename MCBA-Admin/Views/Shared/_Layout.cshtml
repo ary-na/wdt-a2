@@ -1,6 +1,4 @@
-﻿@using MCBA_Admin.Models
-@using Microsoft.AspNetCore.Mvc.TagHelpers
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8"/>
@@ -58,16 +56,16 @@
     <nav>
         <ul class="nav py-1 bg-primary">
             <li class="nav-item">
-                <a class="nav-link text-dark" asp-area="" asp-controller="Accounts" asp-action="Index">Accounts</a>
+                <a class="nav-link text-light" asp-area="" asp-controller="Accounts" asp-action="Index">Accounts</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-dark" asp-area="" asp-controller="Customers" asp-action="Index">Customers</a>
+                <a class="nav-link text-light" asp-area="" asp-controller="Customers" asp-action="Index">Customers</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-dark" asp-area="" asp-controller="Logins" asp-action="Index">Logins</a>
+                <a class="nav-link text-light" asp-area="" asp-controller="Logins" asp-action="Index">Logins</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-dark" asp-area="" asp-controller="BillPays" asp-action="Index">BillPays</a>
+                <a class="nav-link text-light" asp-area="" asp-controller="BillPays" asp-action="Index">Bill Pays</a>
             </li>
         </ul>
     </nav>
@@ -81,7 +79,7 @@
     <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
         <div class="col-md-4 d-flex align-items-center">
             <a href="/" class="mb-3 me-2 mb-md-0 text-muted text-decoration-none lh-1">
-                <img class="bi" src="~/img/logos/MCBA-Logo-Blue.png" alt="Most Common Bank of Australia Logo" width="30" height="30"/>
+                <img class="bi" src="~/img/logos/MCBA-Muted-Logo.png" alt="Most Common Bank of Australia Logo" width="24" height="24"/>
             </a>
             <span class="text-muted">&copy; 2022 MCBA</span>
         </div>
@@ -96,6 +94,7 @@
         </ul>
     </footer>
 </div>
+
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
 <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 <script src="~/js/site.js" asp-append-version="true"></script>

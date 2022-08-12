@@ -67,7 +67,7 @@ public class BillPayBackgroundService : BackgroundService
                 billPay.BillStatus = BillPayStatus.Failed;
             }
 
-            if (billPay.Period == BillPayPeriod.OneOff || billPay.BillStatus == BillPayStatus.Failed) continue;
+            if (billPay.Period == BillPayPeriod.OneOff || billPay.BillStatus is BillPayStatus.Failed or BillPayStatus.Blocked) continue;
             billPay.ScheduleTimeUtc = billPay.ScheduleTimeUtc.AddMonths(1);
             billPay.BillStatus = BillPayStatus.Pending;
         }

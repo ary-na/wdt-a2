@@ -48,12 +48,4 @@ public class LoginManager : IDataRepository<Login, string?>
 
         return id;
     }
-
-    public string? UpdateAccountState(string? id, LoginState? loginState)
-    {
-        var login = _context.Logins.First(x => x.LoginID == id);
-        login.LoginState = loginState;
-        _context.SaveChanges();
-        return id;
-    }
 }

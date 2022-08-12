@@ -7,12 +7,10 @@ namespace MCBA_Admin.Controllers;
 public class LoginsController : Controller
 {
     private readonly LoginsManager _loginsManager;
-    private readonly ILogger<LoginsController> _logger;
 
-    public LoginsController(LoginsManager loginsManager, ILogger<LoginsController> logger)
+    public LoginsController(LoginsManager loginsManager)
     {
         _loginsManager = loginsManager;
-        _logger = logger;
     }
 
     public async Task<IActionResult> Index()

@@ -10,7 +10,7 @@ public class BillPay
     [DisplayName("Bill Pay ID")]
     public int BillPayID { get; set; }
 
-    [Required, ForeignKey(nameof(Account))] public int AccountNumber { get; set; }
+    [Required, ForeignKey(nameof(Account)), DisplayName("Account Number")] public int AccountNumber { get; set; }
     public virtual Account? Account { get; set; }
 
     [Required, DisplayName("Payee ID")] public int PayeeID { get; set; }

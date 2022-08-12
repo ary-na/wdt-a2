@@ -8,7 +8,7 @@ namespace MCBA_Admin.Filters;
 // Code sourced and adapted from:
 // https://docs.microsoft.com/en-us/dotnet/api/system.attributeusageattribute?view=net-6.0
 
-[AttributeUsage(AttributeTargets.Class)]
+[AttributeUsage(AttributeTargets.All)]
 public class AuthoriseAdminAttribute : Attribute, IAuthorizationFilter
 {
     public void OnAuthorization(AuthorizationFilterContext context)
