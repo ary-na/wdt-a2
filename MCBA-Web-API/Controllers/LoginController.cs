@@ -32,6 +32,6 @@ public class LoginController : ControllerBase
     [HttpPut]
     public void Put([FromBody] Login login)
     {
-        _repo.Update(login.LoginID, login);
+        _repo.UpdateAccountState(login.LoginID, login.LoginState);
     }
 }

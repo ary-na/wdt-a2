@@ -1,0 +1,54 @@
+@model MCBA_Model.Models.Login
+@{
+    ViewData["Title"] = "Lock Customer Login";
+}
+
+<div class="d-flex flex-column border rounded w-75">
+    <div class="p-xl-5">
+        <h1>Logins</h1>
+        <p>
+            <small class="text-muted">Lock and unlock customer number @Model.CustomerID with login ID @Model.LoginID</small>
+        </p>
+    </div>
+
+    <form asp-action="LockCustomerLogin">
+        <div class="row px-xl-5">
+            <div class="col">
+                <input type="hidden" asp-for="LoginID"/>
+                <input type="hidden" asp-for="CustomerID"/>
+                <input type="hidden" asp-for="PasswordHash"/>
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <div class="mb-3">
+                    <label asp-for="LoginState" class="form-label"></label>
+                    <div class="form-control-plaintext">
+                        <div class="form-check-inline">
+                            @Html.RadioButtonFor(x => x.LoginState, LoginState.Unlock)
+                            @Html.Label(nameof(LoginState.Unlock))
+                        </div>
+                        <div class="form-check-inline">
+                            @Html.RadioButtonFor(x => x.LoginState, LoginState.Lock)
+                            @Html.Label(nameof(LoginState.Lock))
+                        </div>
+                    </div>
+                    <span asp-validation-for="LoginState" class="text-danger"></span>
+
+                </div>
+
+                <div class="mb-3 d-flex align-content-end justify-content-end">
+                    <button type="submit" class="btn btn-outline-primary">Save</button>
+                </div>
+            </div>
+        </div>
+    </form>
+
+
+    <div class="d-flex justify-content-end align-content-end p-xl-5">
+        <a class="text-decoration-none text-muted" asp-action="Index">Back to Logins</a>
+    </div>
+</div>
+
+@section Scripts {
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+
+}

@@ -4,16 +4,16 @@ using Newtonsoft.Json;
 
 namespace MCBA_Admin.Models.DataManagers;
 
-public class CustomersManager
+public class LoginsManager
 {
     private readonly IHttpClientFactory _clientFactory;
     private HttpClient Client => _clientFactory.CreateClient("api");
 
-    public CustomersManager(IHttpClientFactory clientFactory) => _clientFactory = clientFactory;
+    public LoginsManager(IHttpClientFactory clientFactory) => _clientFactory = clientFactory;
 
-    public async Task<IEnumerable<Customer>?> GetAllAsync()
+    public async Task<IEnumerable<Login>?> GetAllAsync()
     {
-        var response = await Client.GetAsync("api/customer");
+        var response = await Client.GetAsync("api/login");
 
         if (!response.IsSuccessStatusCode)
             throw new Exception();
@@ -22,12 +22,12 @@ public class CustomersManager
         var result = await response.Content.ReadAsStringAsync();
 
         // Deserializing the response received from web api and storing into a list.
-        return JsonConvert.DeserializeObject<List<Customer>>(result);
+        return JsonConvert.DeserializeObject<List<Login>>(result);
     }
 
-    public async Task<Customer?> GetAsync(int customerID)
+    public async Task<Login?> GetAsync(string? loginID)
     {
-        var response = await Client.GetAsync($"api/customer/{customerID}");
+        var response = await Client.GetAsync($"api/login/{loginID}");
 
         if (!response.IsSuccessStatusCode)
             throw new Exception();
@@ -36,14 +36,14 @@ public class CustomersManager
         var result = await response.Content.ReadAsStringAsync();
 
         // Deserializing the response received from web api and storing
-        return JsonConvert.DeserializeObject<Customer>(result);
+        return JsonConvert.DeserializeObject<Login>(result);
     }
 
-    public async Task<bool> PutAsync(Customer customer)
+    public async Task<bool> PutAsync(Login login)
     {
-        var content = new StringContent(JsonConvert.SerializeObject(customer), Encoding.UTF8, "application/json");
+        var content = new StringContent(JsonConvert.SerializeObject(login), Encoding.UTF8, "application/json");
 
-        var response = await Client.PutAsync("api/customer", content);
+        var response = await Client.PutAsync("api/login", content);
 
         return response.IsSuccessStatusCode;
     }

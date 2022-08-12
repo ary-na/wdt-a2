@@ -1,0 +1,39 @@
+@model IEnumerable<MCBA_Model.Models.Login>
+@{
+    ViewData["Title"] = "Logins";
+}
+
+<div class="d-flex flex-column border rounded w-75">
+    <div class="p-xl-5">
+        <h1>Logins</h1>
+        <p><small class="text-muted">To lock customer login, click on the Lock button</small></p>
+    </div>
+
+    <div class="row px-xl-5 pb-xl-5">
+        <div class="col">
+            <table class="table">
+                <thead class="text-muted">
+                <tr>
+                    <th scope="col">@Html.DisplayNameFor(x => x.LoginID)</th>
+                    <th scope="col">@Html.DisplayNameFor(x => x.CustomerID)</th>
+                    <th scope="col">@Html.DisplayNameFor(x => x.LoginState)</th>
+                    <th scope="col"></th>
+                </tr>
+                </thead>
+                <tbody class="align-baseline">
+                @foreach (var login in Model)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(x => login.LoginID)</td>
+                        <td>@Html.DisplayFor(x => login.CustomerID)</td>
+                        <td>@Html.DisplayFor(x => login.LoginState)</td>
+                        <td class="d-flex align-items-end justify-content-end">
+                            <a class="btn btn-sm btn-light" asp-action="LockCustomerLogin" asp-route-loginID="@login.LoginID">Lock</a>
+                        </td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

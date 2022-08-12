@@ -1,0 +1,57 @@
+@model MCBA_Model.Models.BillPay
+@{
+    ViewData["Title"] = "Lock Bill Pay";
+}
+
+<div class="d-flex flex-column border rounded w-75">
+    <div class="p-xl-5">
+        <h1>Bill Pay</h1>
+        <p>
+            <small class="text-muted">Lock and unlock bill pay number @Model.BillPayID for account number @Model.AccountNumber</small>
+        </p>
+    </div>
+
+    <form asp-action="LockBillPay">
+        <div class="row px-xl-5">
+            <div class="col">
+                <input type="hidden" asp-for="BillPayID"/>
+                <input type="hidden" asp-for="AccountNumber"/>
+                <input type="hidden" asp-for="PayeeID"/>
+                <input type="hidden" asp-for="Amount"/>
+                <input type="hidden" asp-for="ScheduleTimeUtc"/>
+                <input type="hidden" asp-for="Period"/>
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <div class="mb-3">
+                    <label asp-for="BillStatus" class="form-label"></label>
+                    <div class="form-control-plaintext">
+                        <div class="form-check-inline">
+                            @Html.RadioButtonFor(x => x.BillStatus, BillPayStatus.Pending)
+                            @Html.Label(nameof(BillPayStatus.Pending))
+                        </div>
+                        <div class="form-check-inline">
+                            @Html.RadioButtonFor(x => x.BillStatus, BillPayStatus.Blocked)
+                            @Html.Label(nameof(BillPayStatus.Blocked))
+                        </div>
+                    </div>
+                    <span asp-validation-for="BillStatus" class="text-danger"></span>
+
+                </div>
+
+                <div class="mb-3 d-flex align-content-end justify-content-end">
+                    <button type="submit" class="btn btn-outline-primary">Update</button>
+                </div>
+            </div>
+        </div>
+    </form>
+
+
+    <div class="d-flex justify-content-end align-content-end p-xl-5">
+        <a class="text-decoration-none text-muted" asp-action="Index">Back to Bill Pays</a>
+    </div>
+</div>
+
+@section Scripts {
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+
+}

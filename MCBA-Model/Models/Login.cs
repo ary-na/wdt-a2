@@ -13,7 +13,7 @@ public class Login
     public int CustomerID { get; set; }
     public virtual Customer? Customer { get; set; }
     
-    [Required, Column(TypeName = "char"), StringLength(64)]
+    [Column(TypeName = "char"), StringLength(64)]
     public string? PasswordHash { get; set; }
     
     public LoginState? LoginState { get; set; }

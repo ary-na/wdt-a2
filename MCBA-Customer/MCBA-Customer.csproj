@@ -88,4 +88,8 @@
       <ProjectReference Include="..\MCBA-Model\MCBA-Model.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Models" />
+    </ItemGroup>
+
 </Project>

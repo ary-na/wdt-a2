@@ -4,7 +4,7 @@ using MCBA_Model.Models;
 using MCBA_Model.Models.Types;
 using X.PagedList;
 
-namespace MCBA_Customer.DataManagers;
+namespace MCBA_Customer.Models.DataManagers;
 
 // https://stackoverflow.com/questions/2978736/linq-and-conditional-sum
 // https://stackoverflow.com/questions/72198966/efficiently-querying-ordering-by-sum-aggregate-in-related-model-in-efcore

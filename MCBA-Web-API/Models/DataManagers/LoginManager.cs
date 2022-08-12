@@ -1,6 +1,8 @@
 using MCBA_Customer.Data;
 using MCBA_Model.Models;
+using MCBA_Model.Models.Types;
 using MCBA_Web_API.Models.Repository;
+using Microsoft.EntityFrameworkCore;
 
 namespace MCBA_Web_API.Models.DataManagers;
 
@@ -44,6 +46,14 @@ public class LoginManager : IDataRepository<Login, string?>
         _context.Logins?.Remove(_context.Logins.Find(id));
         _context.SaveChanges();
 
+        return id;
+    }
+
+    public string? UpdateAccountState(string? id, LoginState? loginState)
+    {
+        var login = _context.Logins.First(x => x.LoginID == id);
+        login.LoginState = loginState;
+        _context.SaveChanges();
         return id;
     }
 }

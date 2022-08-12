@@ -1,7 +1,7 @@
 using MCBA_Customer.BackgroundServices;
 using MCBA_Customer.Data;
-using MCBA_Customer.DataManagers;
 using MCBA_Customer.Filters;
+using MCBA_Customer.Models.DataManagers;
 using MCBA_Customer.Services;
 using Microsoft.EntityFrameworkCore;
 
