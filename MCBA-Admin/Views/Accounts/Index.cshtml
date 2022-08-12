@@ -1,0 +1,37 @@
+@model IEnumerable<MCBA_Model.Models.Account>
+@{
+    ViewData["Title"] = "Accounts";
+}
+
+<div class="d-flex flex-column border rounded w-75">
+    <div class="p-xl-5">
+        <h1>Accounts</h1>
+        <p><small class="text-muted">To view transactions, click on the Transactions button</small></p>
+    </div>
+
+    <div class="row px-xl-5 pb-xl-5">
+        <div class="col">
+            <table class="table">
+                <thead class="text-muted">
+                <tr>
+                    <th scope="col">@Html.DisplayNameFor(x => x.AccountNumber)</th>
+                    <th scope="col">@Html.DisplayNameFor(x => x.AccountType)</th>
+                    <th scope="col"></th>
+                </tr>
+                </thead>
+                <tbody class="align-baseline">
+                @foreach (var account in Model)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(x => account.AccountNumber)</td>
+                        <td>@Html.DisplayFor(x => account.AccountType)</td>
+                        <td class="d-flex align-items-end justify-content-end">
+                            <a class="btn btn-sm btn-light" asp-action="Transactions" asp-route-accountNumber="@account.AccountNumber">Transactions</a>
+                        </td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

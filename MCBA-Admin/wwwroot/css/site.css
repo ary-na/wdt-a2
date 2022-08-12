@@ -1,0 +1,18 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+*, *:focus, *:hover {
+  outline: none;
+}
+
+body, html {
+  margin: 0;
+  padding: 0;
+}
