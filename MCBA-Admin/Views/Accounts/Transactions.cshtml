@@ -1,0 +1,42 @@
+@model IEnumerable<MCBA_Model.Models.Transaction>
+@{
+    ViewData["Title"] = "Transactions";
+}
+
+<div class="d-flex flex-column border rounded w-75">
+    <div class="p-xl-5">
+        <h1>Transactions</h1>
+        <p><small class="text-muted">Account  transactions</small></p>
+    </div>
+
+    <div class="row px-xl-5 pb-xl-5">
+        <div class="col">
+            <table class="table">
+                <thead class="text-muted">
+                <tr>
+                    <th scope="col">@Html.DisplayNameFor(x => x.TransactionID)</th>
+                    <th scope="col">@Html.DisplayNameFor(x => x.TransactionType)</th>
+                    <th scope="col">@Html.DisplayNameFor(x => x.DestinationAccountNumber)</th>
+                    <th scope="col">@Html.DisplayNameFor(x => x.Amount)</th>
+                    <th scope="col">@Html.DisplayNameFor(x => x.Comment)</th>
+                    <th scope="col">@Html.DisplayNameFor(x => x.TransactionTimeUtc)</th>
+                </tr>
+                </thead>
+                <tbody class="align-baseline">
+                @foreach (var account in Model)
+                {
+                    var transactionTimeLocal = account.TransactionTimeUtc.ToLocalTime().ToString("dd/MM/yyyy HH:mm tt");
+                    <tr>
+                        <td>@Html.DisplayFor(x => account.TransactionID)</td>
+                        <td>@Html.DisplayFor(x => account.TransactionType)</td>
+                        <td>@Html.DisplayFor(x => account.DestinationAccountNumber)</td>
+                        <td>@Html.DisplayFor(x => account.Amount)</td>
+                        <td>@Html.DisplayFor(x => account.Comment)</td>
+                        <td>@Html.DisplayFor(x => transactionTimeLocal)</td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
