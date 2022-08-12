@@ -1,5 +1,6 @@
 using MCBA_Model.Models;
 using Newtonsoft.Json;
+using X.PagedList;
 
 namespace MCBA_Admin.Models.DataManagers;
 
@@ -27,7 +28,8 @@ public class AccountsManager
         return JsonConvert.DeserializeObject<List<Account>>(result);
     }
 
-    public async Task<IEnumerable<Transaction>?> GetAccountTransactions(int accountNumber, DateTime? from, DateTime? to)
+    private async Task<IEnumerable<Transaction>?> GetAccountTransactionsAsync(int accountNumber, DateTime? from,
+        DateTime? to)
     {
         var response = await Client.GetAsync($"api/account/{accountNumber}");
 
@@ -40,21 +42,25 @@ public class AccountsManager
         // Deserializing the response received from web api and storing into a list.
         var transactions = JsonConvert.DeserializeObject<List<Transaction>>(result);
 
-        if (from is null && to is null)
-        {
-            return transactions;
-        }
+        if (from.HasValue && to.HasValue)
+            return await transactions.Where(x => x.TransactionTimeUtc >= from?.ToUniversalTime() && x.TransactionTimeUtc <= to?.ToUniversalTime()).ToListAsync();
 
-        if (from is not null && to is null)
-        {
-            return transactions.Where(x => x.TransactionTimeUtc >= from);
-        }
+        if (from.HasValue)
+            return await transactions.Where(x => x.TransactionTimeUtc >= from?.ToUniversalTime()).ToListAsync();
 
-        if (from is null && to is not null)
-        {
-            return transactions.Where(x => x.TransactionTimeUtc <= to);
-        }
+        if (to.HasValue)
+            return await transactions.Where(x => x.TransactionTimeUtc <= to?.ToUniversalTime()).ToListAsync();
 
-        return transactions.Where(x => x.TransactionTimeUtc >= from && x.TransactionTimeUtc <= to);
+        return transactions;
+    }
+
+    public async Task<IPagedList<Transaction>> GetPagedAccountTransactionsAsync(int accountNumber, DateTime? from,
+        DateTime? to, int page)
+    {
+        var transactions = await GetAccountTransactionsAsync(accountNumber, from, to);
+        const int pageSize = 4;
+        return await transactions
+            .OrderByDescending(x => x.TransactionTimeUtc)
+            .ToPagedListAsync(page, pageSize);
     }
 }

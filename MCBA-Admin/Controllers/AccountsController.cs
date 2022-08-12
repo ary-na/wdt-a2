@@ -14,8 +14,10 @@ public class AccountsController : Controller
         return View(await _accountsManager.GetAll());
     }
     
-    public async Task<IActionResult> Transactions(int accountNumber, DateTime? from, DateTime? to)
+    public async Task<IActionResult> Transactions(int accountNumber, DateTime? from, DateTime? to, int page = 1)
     {
-        return View(await _accountsManager.GetAccountTransactions(accountNumber, from, to));
+        // Set the account number 
+        ViewBag.AccountNumber = accountNumber;
+        return View(await _accountsManager.GetPagedAccountTransactionsAsync(accountNumber, from, to, page));
     }
 }

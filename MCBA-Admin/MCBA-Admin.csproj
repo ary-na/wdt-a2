@@ -9,6 +9,7 @@
 
     <ItemGroup>
       <PackageReference Include="Newtonsoft.Json" Version="13.0.2-beta1" />
+      <PackageReference Include="X.PagedList.Mvc.Core" Version="8.4.3" />
     </ItemGroup>
 
     <ItemGroup>

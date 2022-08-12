@@ -1,42 +1,98 @@
-@model IEnumerable<MCBA_Model.Models.Transaction>
+@using X.PagedList.Mvc.Core
+@using X.PagedList.Web.Common
+@model X.PagedList.IPagedList<MCBA_Model.Models.Transaction>
 @{
-    ViewData["Title"] = "Transactions";
+    ViewData["Title"] = "Bill Pays";
 }
 
 <div class="d-flex flex-column border rounded w-75">
     <div class="p-xl-5">
         <h1>Transactions</h1>
-        <p><small class="text-muted">Account  transactions</small></p>
+        <p>
+            <small class="text-muted">Account @ViewBag.AccountNumber transactions</small>
+        </p>
     </div>
 
-    <div class="row px-xl-5 pb-xl-5">
-        <div class="col">
-            <table class="table">
-                <thead class="text-muted">
-                <tr>
-                    <th scope="col">@Html.DisplayNameFor(x => x.TransactionID)</th>
-                    <th scope="col">@Html.DisplayNameFor(x => x.TransactionType)</th>
-                    <th scope="col">@Html.DisplayNameFor(x => x.DestinationAccountNumber)</th>
-                    <th scope="col">@Html.DisplayNameFor(x => x.Amount)</th>
-                    <th scope="col">@Html.DisplayNameFor(x => x.Comment)</th>
-                    <th scope="col">@Html.DisplayNameFor(x => x.TransactionTimeUtc)</th>
-                </tr>
-                </thead>
-                <tbody class="align-baseline">
-                @foreach (var account in Model)
-                {
-                    var transactionTimeLocal = account.TransactionTimeUtc.ToLocalTime().ToString("dd/MM/yyyy HH:mm tt");
+
+    <form asp-action="Transactions">
+        <div class="row px-xl-5">
+
+            <div class="col">
+                <div class="mb-3">
+                    <label class="form-label">Date from</label>
+                    <input type="date" name="from" class="form-control">
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="mb-3">
+                    <label class="form-label">Date to</label>
+                    <input type="date" name="to" class="form-control">
+                </div>
+            </div>
+
+            <div class="mb-3 d-flex align-content-end justify-content-end">
+                <button type="submit" asp-route-accountNumber="@ViewBag.AccountNumber" class="btn btn-outline-primary">Filter</button>
+            </div>
+        </div>
+    </form>
+
+    @if (Model.Any())
+    {
+        <div class="row px-xl-5">
+            <div class="col">
+                <table class="table">
+                    <thead class="text-muted">
                     <tr>
-                        <td>@Html.DisplayFor(x => account.TransactionID)</td>
-                        <td>@Html.DisplayFor(x => account.TransactionType)</td>
-                        <td>@Html.DisplayFor(x => account.DestinationAccountNumber)</td>
-                        <td>@Html.DisplayFor(x => account.Amount)</td>
-                        <td>@Html.DisplayFor(x => account.Comment)</td>
-                        <td>@Html.DisplayFor(x => transactionTimeLocal)</td>
+                        <th scope="col">@Html.DisplayNameFor(x => x[0].TransactionID)</th>
+                        <th scope="col">@Html.DisplayNameFor(x => x[0].TransactionType)</th>
+                        <th scope="col">@Html.DisplayNameFor(x => x[0].DestinationAccountNumber)</th>
+                        <th scope="col">@Html.DisplayNameFor(x => x[0].Amount)</th>
+                        <th scope="col">@Html.DisplayNameFor(x => x[0].Comment)</th>
+                        <th scope="col">@Html.DisplayNameFor(x => x[0].TransactionTimeUtc)</th>
                     </tr>
-                }
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody class="align-baseline">
+                    @foreach (var account in Model)
+                    {
+                        var transactionTimeLocal = account.TransactionTimeUtc.ToLocalTime().ToString("dd/MM/yyyy HH:mm tt");
+                        <tr>
+                            <td>@Html.DisplayFor(x => account.TransactionID)</td>
+                            <td>@Html.DisplayFor(x => account.TransactionType)</td>
+                            <td>@Html.DisplayFor(x => account.DestinationAccountNumber)</td>
+                            <td>@Html.DisplayFor(x => account.Amount)</td>
+                            <td>@Html.DisplayFor(x => account.Comment)</td>
+                            <td>@Html.DisplayFor(x => transactionTimeLocal)</td>
+                        </tr>
+                    }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="d-flex justify-content-center align-content-center pt-xl-3">
+            @Html.PagedListPager(Model, page => Url.Action("Transactions", new { Model[0].AccountNumber, page }),
+                new PagedListRenderOptions
+                {
+                    LiElementClasses = new[] { "page-item" },
+                    PageClasses = new[] { "page-link" }
+                })
+        </div>
+    }
+    else
+    {
+        <h6 class="text-sm-center pt-xl-3">
+            No Transactions found
+            <small class="text-muted">Try different dates</small>
+        </h6>
+    }
+
+    <div class="d-flex justify-content-end align-content-end">
+        <a class="btn btn-outline-primary mt-xl-5 mb-xl-5 me-xl-5"
+           asp-action="Index">
+            Back to Accounts
+        </a>
+        <div>
         </div>
     </div>
 </div>
