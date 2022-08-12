@@ -17,10 +17,16 @@ public class AccountController : ControllerBase
         _logger = logger;
     }
 
-    [HttpGet("{accountNumber}")]
-    public IEnumerable<Transaction> GetTransactions(int accountNumber)
+    [HttpGet]
+    public IEnumerable<Account> GetAccounts()
     {
-        return _repo.GetTransactions(accountNumber);
+        return _repo.GetAll();
+    }
+    
+    [HttpGet("{id}")]
+    public IEnumerable<Transaction> GetTransactions(int id)
+    {
+        return _repo.GetTransactions(id);
     }
 
     [HttpPut]

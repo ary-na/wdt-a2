@@ -47,8 +47,8 @@ public class AccountManager : IDataRepository<Account, int>
         return id;
     }
 
-    public IEnumerable<Transaction> GetTransactions(int accountNumber)
+    public IEnumerable<Transaction> GetTransactions(int id)
     {
-       return _context.Accounts.Find(accountNumber).Transactions.ToList();
+       return _context.Transactions.Where(x => x.AccountNumber == id).ToList();
     }
 }
