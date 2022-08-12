@@ -1,0 +1,47 @@
+@model IEnumerable<MCBA_Model.Models.Customer>
+@{
+    ViewData["Title"] = "Customers";
+}
+
+<div class="d-flex flex-column border rounded w-75">
+    <div class="p-xl-5">
+        <h1>Customers</h1>
+        <p><small class="text-muted">To edit customer details, click on the Edit button</small></p>
+    </div>
+
+    <div class="row px-xl-5 pb-xl-5">
+        <div class="col">
+            <table class="table">
+                <thead class="text-muted">
+                <tr>
+                    <th scope="col">@Html.DisplayNameFor(x => x.Name)</th>
+                    <th scope="col">@Html.DisplayNameFor(x => x.TFN)</th>
+                    <th scope="col">@Html.DisplayNameFor(x => x.Address)</th>
+                    <th scope="col">@Html.DisplayNameFor(x => x.City)</th>
+                    <th scope="col">@Html.DisplayNameFor(x => x.State)</th>
+                    <th scope="col">@Html.DisplayNameFor(x => x.Postcode)</th>
+                    <th scope="col">@Html.DisplayNameFor(x => x.Mobile)</th>
+                    <th scope="col"></th>
+                </tr>
+                </thead>
+                <tbody class="align-baseline">
+                @foreach (var account in Model)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(x => account.Name)</td>
+                        <td>@Html.DisplayFor(x => account.TFN)</td>
+                        <td>@Html.DisplayFor(x => account.Address)</td>
+                        <td>@Html.DisplayFor(x => account.City)</td>
+                        <td>@Html.DisplayFor(x => account.State)</td>
+                        <td>@Html.DisplayFor(x => account.Postcode)</td>
+                        <td>@Html.DisplayFor(x => account.Mobile)</td>
+                        <td class="d-flex align-items-end justify-content-end">
+                            <a class="btn btn-sm btn-light" asp-action="EditCustomerProfile" asp-route-customerID="@account.CustomerID">Edit</a>
+                        </td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

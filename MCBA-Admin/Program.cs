@@ -18,6 +18,7 @@ builder.Services.AddHttpClient("api", client =>
 
 builder.Services.AddScoped<LoginManager>();
 builder.Services.AddScoped<AccountsManager>();
+builder.Services.AddScoped<CustomersManager>();
 
 // Store session into Web-Server memory.
 builder.Services.AddDistributedMemoryCache();
