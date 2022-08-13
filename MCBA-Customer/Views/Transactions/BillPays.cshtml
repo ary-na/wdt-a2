@@ -41,17 +41,13 @@
                         <tr>
                             <td>@Html.DisplayFor(x => billPay.BillPayID)</td>
                             <td>@Html.DisplayFor(x => billPay.PayeeID)</td>
-                            <td>@Html.DisplayFor(x => billPay.Amount)</td>
+                            <td>$@Html.DisplayFor(x => billPay.Amount)</td>
                             <td>@Html.DisplayFor(x => billPay.AccountNumber)</td>
                             <td>@Html.DisplayFor(x => scheduleTimeLocal)</td>
                             <td>@Html.DisplayFor(x => billPay.Period)</td>
                             <td>@Html.DisplayFor(x => billPay.BillStatus)</td>
                             <td class="d-flex align-items-end justify-content-end">
-                                @if (billPay.BillStatus == BillPayStatus.Blocked)
-                                {
-                                    <a class="btn me-1 btn-sm btn-light" asp-action="EditBillPay" asp-route-billPayID="@billPay.BillPayID" aria-disabled="True">Edit</a>
-                                }
-                                else
+                                @if (billPay.BillStatus is not BillPayStatus.Blocked)
                                 {
                                     <a class="btn me-1 btn-sm btn-light" asp-action="EditBillPay" asp-route-billPayID="@billPay.BillPayID">Edit</a>
                                 }

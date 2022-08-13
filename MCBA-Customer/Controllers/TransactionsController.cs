@@ -161,7 +161,7 @@ public class TransactionsController : Controller
         if (!ModelState.IsValid)
             return View(billPay);
         
-        await _accountManager.UpdateBillPayAsync(billPay);
+        var success = await _accountManager.UpdateBillPayAsync(billPay);
         return RedirectToAction(nameof(BillPays), new { accountNumber = billPay.AccountNumber});
     }
     

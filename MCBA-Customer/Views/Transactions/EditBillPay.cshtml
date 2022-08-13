@@ -5,16 +5,17 @@
 
 <div class="d-flex flex-column border rounded w-75">
         <div class="p-xl-5">
-            <h1>Bill Pay</h1>
+            <h1>Edit Bill Pay</h1>
             <p>
                 <small class="text-muted">Edit bill ID @Model.BillPayID for Account Number @Model.AccountNumber</small>
             </p>
         </div>
 
-    <form asp-action="BillPay">
+    <form asp-action="EditBillPay">
         <div class="row px-xl-5">
             <div class="col">
                 <input type="hidden" asp-for="BillPayID"/>
+                <input type="hidden" asp-for="BillStatus"/>
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
                 <div class="mb-3">

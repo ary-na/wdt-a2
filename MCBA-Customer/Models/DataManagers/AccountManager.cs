@@ -161,7 +161,7 @@ public class AccountManager
 
     public async Task<bool> UpdateBillPayAsync(BillPay billPay)
     {
-        if (billPay.BillStatus == BillPayStatus.Blocked) return false;
+        if (billPay.BillStatus is BillPayStatus.Blocked) return false;
         billPay.ScheduleTimeUtc = billPay.ScheduleTimeUtc.ToUniversalTime();
         billPay.BillStatus = BillPayStatus.Pending;
         _context.BillPays.Update(billPay);
