@@ -1,9 +1,4 @@
-<!-- 
-// Code source and adapted from:
-// https://chikkanti.wordpress.com/2015/04/05/radiobutton-list-with-enum-and-model-in-mvc-5/
-// https://www.w3schools.com/tags/att_input_type_datetime-local.asp
--->
-@model MCBA_Customer.ViewModels.BillPayViewModel
+@model BillPay
 @{
     ViewData["Title"] = "Bill Pay";
 }
@@ -12,14 +7,14 @@
         <div class="p-xl-5">
             <h1>Bill Pay</h1>
             <p>
-                <small class="text-muted">Schedule a bill for Account Number @Model.AccountNumber</small>
+                <small class="text-muted">Edit bill ID @Model.BillPayID for Account Number @Model.AccountNumber</small>
             </p>
         </div>
 
     <form asp-action="BillPay">
         <div class="row px-xl-5">
             <div class="col">
-                <input type="hidden" asp-for="AccountNumber"/>
+                <input type="hidden" asp-for="BillPayID"/>
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
                 <div class="mb-3">
@@ -37,9 +32,9 @@
 
             <div class="col">
                 <div class="mb-3">
-                    <label asp-for="ScheduleTime" class="form-label"></label>
-                    <input type="datetime-local" asp-for="ScheduleTime" class="form-control">
-                    <span asp-validation-for="ScheduleTime" class="text-danger"></span>
+                    <label asp-for="ScheduleTimeUtc" class="form-label"></label>
+                    <input type="datetime-local" asp-for="ScheduleTimeUtc" class="form-control">
+                    <span asp-validation-for="ScheduleTimeUtc" class="text-danger"></span>
                 </div>
 
                 <div class="mb-3">
@@ -62,7 +57,7 @@
             </div>
 
             <div class="mb-3 d-flex align-content-end justify-content-end">
-                <button type="submit" class="btn btn-outline-primary">Schedule</button>
+                <button type="submit" asp-route-accountNumber="@Model.AccountNumber" class="btn btn-outline-primary">Update</button>
             </div>
         </div>
     </form>
@@ -74,5 +69,4 @@
 
 @section Scripts {
     @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
-
 }

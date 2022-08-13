@@ -121,7 +121,7 @@ public class TransactionsController : Controller
         ViewBag.AccountNumber = accountNumber;
         return View(await _accountManager.GetBillPaysAsync(accountNumber, page));
     }
-    
+
     public async Task<IActionResult> BillPay(int accountNumber)
     {
         return View(new BillPayViewModel()
@@ -145,5 +145,42 @@ public class TransactionsController : Controller
         // Insert transaction
         await _accountManager.BillPayAsync(viewModel);
         return RedirectToAction(nameof(BillPays), new { accountNumber = viewModel.AccountNumber});
+    }
+    
+    public async Task<IActionResult> EditBillPay(int billPayID)
+    {
+        var billPay = await _accountManager.GetBillPayAsync(billPayID);
+        billPay.ScheduleTimeUtc = billPay.ScheduleTimeUtc.ToLocalTime();
+        return View(billPay);
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> EditBillPay(BillPay billPay)
+    {
+        // Check model state
+        if (!ModelState.IsValid)
+            return View(billPay);
+        
+        await _accountManager.UpdateBillPayAsync(billPay);
+        return RedirectToAction(nameof(BillPays), new { accountNumber = billPay.AccountNumber});
+    }
+    
+    
+    public async Task<IActionResult> DeleteBillPay(int billPayID)
+    {
+        var billPay = await _accountManager.GetBillPayAsync(billPayID);
+        billPay.ScheduleTimeUtc = billPay.ScheduleTimeUtc.ToLocalTime();
+        return View(billPay);
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> DeleteBillPay(BillPay billPay)
+    {
+        // Check model state
+        if (!ModelState.IsValid)
+            return View(billPay);
+        
+        await _accountManager.DeleteBillPayAsync(billPay);
+        return RedirectToAction(nameof(BillPays), new { accountNumber = billPay.AccountNumber});
     }
 }

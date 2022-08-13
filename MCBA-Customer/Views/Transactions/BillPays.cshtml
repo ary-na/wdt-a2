@@ -3,6 +3,7 @@
 // https://www.aspsnippets.com/Articles/ASPNet-MVC-Pass-Send-data-from-one-cshtml-to-another.aspx
 -->
 
+@using MCBA_Customer.ViewModels
 @model IPagedList<MCBA_Model.Models.BillPay>
 @{
     ViewData["Title"] = "Bill Pays";
@@ -46,8 +47,15 @@
                             <td>@Html.DisplayFor(x => billPay.Period)</td>
                             <td>@Html.DisplayFor(x => billPay.BillStatus)</td>
                             <td class="d-flex align-items-end justify-content-end">
-                                <a class="btn me-1 btn-sm btn-light" asp-route-billPayID="@billPay.BillPayID">Edit</a>
-                                <a class="btn btn-sm btn-light" asp-route-billPayID="@billPay.BillPayID">Delete</a>
+                                @if (billPay.BillStatus == BillPayStatus.Blocked)
+                                {
+                                    <a class="btn me-1 btn-sm btn-light" asp-action="EditBillPay" asp-route-billPayID="@billPay.BillPayID" aria-disabled="True">Edit</a>
+                                }
+                                else
+                                {
+                                    <a class="btn me-1 btn-sm btn-light" asp-action="EditBillPay" asp-route-billPayID="@billPay.BillPayID">Edit</a>
+                                }
+                                <a type="submit" asp-action="DeleteBillPay" asp-route-billPayID="@billPay.BillPayID" class="btn btn-sm btn-light">Delete</a>
                             </td>
                         </tr>
                     }

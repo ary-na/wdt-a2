@@ -1,0 +1,66 @@
+@model MCBA_Model.Models.BillPay
+@{
+    ViewData["Title"] = "Delete Bill Pay";
+}
+
+<div class="d-flex flex-column border rounded w-75">
+    <div class="p-xl-5">
+        <h1>Bill Pay</h1>
+        <p>
+            <small class="text-muted">Delete bill ID @Model.BillPayID for Account Number @Model.AccountNumber</small>
+        </p>
+    </div>
+    <form asp-action="DeleteBillPay">
+        <div class="row px-xl-5">
+            <div class="col">
+                <input type="hidden" asp-for="BillPayID"/>
+                <input type="hidden" asp-for="AccountNumber"/>
+                <input type="hidden" asp-for="PayeeID"/>
+                <input type="hidden" asp-for="Amount"/>
+                <input type="hidden" asp-for="ScheduleTimeUtc"/>
+                <input type="hidden" asp-for="Period"/>
+                <input type="hidden" asp-for="BillStatus"/>
+                <h4 class="text-muted">Payee Details</h4>
+                <ul class="list-unstyled">
+                    <li>
+                        <span class="text-muted">Payee ID:</span> @Model.PayeeID
+
+                    </li>
+                    <li>
+                        <span class="text-muted">Payee:</span> @Model.Payee.Name
+                    </li>
+                    <li>
+                        <span class="text-muted">Phone:</span> @Model.Payee.Phone
+                    </li>
+                </ul>
+            </div>
+
+            <div class="col">
+                <h4 class="text-muted">Bill Details</h4>
+                <ul class="list-unstyled">
+                    <li>
+                        <span class="text-muted">Amount:</span> @Model.Amount
+
+                    </li>
+                    <li>
+                        <span class="text-muted">Period:</span> @Model.Period
+                    </li>
+                    <li>
+                        <span class="text-muted">Scheduled Time:</span> @Model.ScheduleTimeUtc
+                    </li>
+                    <li>
+                        <span class="text-muted">Bill Status:</span> @Model.BillStatus
+                    </li>
+                </ul>
+            </div>
+
+            <div class="mb-3 d-flex align-content-end justify-content-end">
+                <button type="submit" asp-route-accountNumber="@Model.AccountNumber" class="btn btn-outline-primary">Delete</button>
+            </div>
+        </div>
+    </form>
+
+    <div class="d-flex justify-content-end align-content-end p-xl-5">
+        <a class="text-decoration-none text-muted" asp-action="BillPays" asp-route-accountNumber="@Model.AccountNumber">Back to Bill Pays</a>
+    </div>
+</div>

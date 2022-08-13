@@ -21,6 +21,9 @@ public class AccountManager
     public async Task<Account> GetAccountAsync(int accountNumber) =>
         await _context.Accounts.FindAsync(accountNumber);
 
+    public async Task<BillPay> GetBillPayAsync(int billPayID) =>
+        await _context.BillPays.FindAsync(billPayID);
+
     public async Task<decimal> GetAccountBalanceAsync(int accountNumber)
     {
         var accounts = await _context.Accounts.FindAsync(accountNumber);
@@ -99,7 +102,8 @@ public class AccountManager
         var destinationAccount = await _context.Accounts.FindAsync(viewModel.DestinationAccountNumber);
         account.Balance = await GetAccountBalanceAsync(viewModel.AccountNumber);
 
-        if (viewModel.Amount > account.AvailableBalance || account.AccountNumber == destinationAccount.AccountNumber) return false;
+        if (viewModel.Amount > account.AvailableBalance ||
+            account.AccountNumber == destinationAccount.AccountNumber) return false;
 
         account.Transactions?.Add(
             new Transaction
@@ -152,6 +156,22 @@ public class AccountManager
                 BillStatus = BillPayStatus.Pending
             });
 
+        await _context.SaveChangesAsync();
+    }
+
+    public async Task<bool> UpdateBillPayAsync(BillPay billPay)
+    {
+        if (billPay.BillStatus == BillPayStatus.Blocked) return false;
+        billPay.ScheduleTimeUtc = billPay.ScheduleTimeUtc.ToUniversalTime();
+        billPay.BillStatus = BillPayStatus.Pending;
+        _context.BillPays.Update(billPay);
+        await _context.SaveChangesAsync();
+        return true;
+    }
+
+    public async Task DeleteBillPayAsync(BillPay billPay)
+    {
+        _context.BillPays.Remove(billPay);
         await _context.SaveChangesAsync();
     }
 }
