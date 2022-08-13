@@ -8,18 +8,15 @@ public class BillPaysController : Controller
 {
     private readonly BillPaysManager _billPaysManager;
 
-    public BillPaysController(BillPaysManager billPaysManager) => _billPaysManager = billPaysManager;
+    public BillPaysController(BillPaysManager billPaysManager) => 
+        _billPaysManager = billPaysManager;
 
-    public async Task<IActionResult> Index(int page = 1)
-    {
-        return View(await _billPaysManager.GetPagedBillPaysAsync(page));
-    }
-    
-    public async Task<IActionResult> LockBillPay(int billPayID)
-    {
-        return View(await _billPaysManager.GetAsync(billPayID));
-    }
-    
+    public async Task<IActionResult> Index(int page = 1) => 
+        View(await _billPaysManager.GetPagedBillPaysAsync(page));
+
+    public async Task<IActionResult> LockBillPay(int billPayID) => 
+        View(await _billPaysManager.GetAsync(billPayID));
+
     [HttpPost]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> LockBillPay(BillPay billPay)

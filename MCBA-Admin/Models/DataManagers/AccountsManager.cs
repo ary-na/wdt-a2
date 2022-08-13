@@ -43,7 +43,9 @@ public class AccountsManager
         var transactions = JsonConvert.DeserializeObject<List<Transaction>>(result);
 
         if (from.HasValue && to.HasValue)
-            return await transactions.Where(x => x.TransactionTimeUtc >= from?.ToUniversalTime() && x.TransactionTimeUtc <= to?.ToUniversalTime()).ToListAsync();
+            return await transactions.Where(x =>
+                    x.TransactionTimeUtc >= from?.ToUniversalTime() && x.TransactionTimeUtc <= to?.ToUniversalTime())
+                .ToListAsync();
 
         if (from.HasValue)
             return await transactions.Where(x => x.TransactionTimeUtc >= from?.ToUniversalTime()).ToListAsync();

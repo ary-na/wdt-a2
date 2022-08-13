@@ -26,7 +26,7 @@ public class BillPaysManager
         // Deserializing the response received from web api and storing into a list.
         return JsonConvert.DeserializeObject<List<BillPay>>(result);
     }
-    
+
     public async Task<BillPay?> GetAsync(int billPayID)
     {
         var response = await Client.GetAsync($"api/billpay/{billPayID}");
@@ -49,7 +49,7 @@ public class BillPaysManager
             .OrderByDescending(x => x.ScheduleTimeUtc)
             .ToPagedListAsync(page, pageSize);
     }
-    
+
     public async Task<bool> PutAsync(BillPay billPay)
     {
         var content = new StringContent(JsonConvert.SerializeObject(billPay), Encoding.UTF8, "application/json");

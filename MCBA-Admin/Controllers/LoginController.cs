@@ -26,7 +26,7 @@ public class LoginController : Controller
 
         var admin = _loginManager.GetAdmin();
 
-        // Login customer.
+        // Login admin.
         HttpContext.Session.SetInt32(nameof(Admin.AdminID), admin.AdminID);
         HttpContext.Session.SetString(nameof(Admin.Name), admin.Name);
 
@@ -36,7 +36,7 @@ public class LoginController : Controller
     [Route("Logout")]
     public IActionResult Logout()
     {
-        // Logout customer.
+        // Logout admin.
         HttpContext.Session.Clear();
 
         return RedirectToAction("Index", "Home");
