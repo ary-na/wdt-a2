@@ -8,41 +8,68 @@
     ViewData["Title"] = "Statement";
 }
 
-<div>
-    <h1>Orders for </h1>
-    <table class="table">
-        <tr class="text-muted">
-            <th>@Html.DisplayNameFor(x => x[0].TransactionID)</th>
-            <th>@Html.DisplayNameFor(x => x[0].TransactionType)</th>
-            <th>@Html.DisplayNameFor(x => x[0].AccountNumber)</th>
-            <th>@Html.DisplayNameFor(x => x[0].DestinationAccountNumber)</th>
-            <th>@Html.DisplayNameFor(x => x[0].Amount)</th>
-            <th>@Html.DisplayNameFor(x => x[0].Comment)</th>
-            <th>@Html.DisplayNameFor(x => x[0].TransactionTimeUtc)</th>
-        </tr>
-        @foreach (var transaction in Model)
-        {
-            var transactionTimeLocal = transaction.TransactionTimeUtc.ToLocalTime().ToString("dd/MM/yyyy HH:mm tt");
-            <tr>
-                <td>@Html.DisplayFor(x => transaction.TransactionID)</td>
-                <td>@Html.DisplayFor(x => transaction.TransactionType)</td>
-                <td>@Html.DisplayFor(x => transaction.AccountNumber)</td>
-                <td>@Html.DisplayFor(x => transaction.DestinationAccountNumber)</td>
-                <td>$@Html.DisplayFor(x => transaction.Amount)</td>
-                <td>@Html.DisplayFor(x => transaction.Comment)</td>
-                <td>@Html.DisplayFor(x => transactionTimeLocal)</td>
-            </tr>
-        }
-    </table>
+<div class="d-flex flex-column border rounded w-75">
+    <div class="p-xl-5">
+        <h1>Statement</h1>
+        <p>
+            <small class="text-muted">Statement for Account Number @Model[0].AccountNumber</small>
+        </p>
+    </div>
 
-    @Html.PagedListPager(Model, page => Url.Action("Statement", new { Model[0].AccountNumber , page }),
-        new PagedListRenderOptions
-        {
-            LiElementClasses = new[] { "page-item" },
-            PageClasses = new[] { "page-link" }
-        })
-</div>
+    @if (Model.Any())
+    {
+        <div class="row px-xl-5">
+            <div class="col">
+                <table class="table">
+                    <thead class="text-muted">
+                    <tr>
+                        <th scope="col">@Html.DisplayNameFor(x => x[0].TransactionID)</th>
+                        <th scope="col">@Html.DisplayNameFor(x => x[0].TransactionType)</th>
+                        <th scope="col">@Html.DisplayNameFor(x => x[0].DestinationAccountNumber)</th>
+                        <th scope="col">@Html.DisplayNameFor(x => x[0].Amount)</th>
+                        <th scope="col">@Html.DisplayNameFor(x => x[0].Comment)</th>
+                        <th scope="col">@Html.DisplayNameFor(x => x[0].TransactionTimeUtc)</th>
+                    </tr>
+                    </thead>
+                    <tbody class="align-baseline">
+                    @foreach (var billPay in Model)
+                    {
+                        var transactionTimeLocal = billPay.TransactionTimeUtc.ToLocalTime().ToString("dd/MM/yyyy HH:mm tt");
+                        <tr>
+                            <td>@Html.DisplayFor(x => billPay.TransactionID)</td>
+                            <td>@Html.DisplayFor(x => billPay.TransactionType)</td>
+                            <td>@Html.DisplayFor(x => billPay.DestinationAccountNumber)</td>
+                            <td>@Html.DisplayFor(x => billPay.Amount)</td>
+                            <td>@Html.DisplayFor(x => billPay.Comment)</td>
+                            <td>@Html.DisplayFor(x => transactionTimeLocal)</td>
+                        </tr>
+                    }
+                    </tbody>
+                </table>
+            </div>
+        </div>
 
-<div>
-    <a asp-action="Index">Back to Customers</a>
+        <div class="d-flex justify-content-center align-content-center pt-xl-3 pb-xl-5">
+            @Html.PagedListPager(Model, page => Url.Action("Statement", new { Model[0].AccountNumber, page }),
+                new PagedListRenderOptions
+                {
+                    LiElementClasses = new[] { "page-item" },
+                    PageClasses = new[] { "page-link" }
+                })
+        </div>
+    }
+    else
+    {
+        <h6 class="text-sm-center pt-xl-3 pb-xl-5">
+            No Transaction
+            <small class="text-muted">Go to payments to access Transactions</small>
+        </h6>
+    }
+    <div class="d-flex justify-content-end align-content-end">
+        <a class="btn btn-outline-primary mt-xl-5 mb-xl-5 me-xl-5"
+           asp-action="Index">
+            Back to Accounts
+        </a>
+    </div>
+
 </div>

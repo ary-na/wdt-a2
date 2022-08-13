@@ -9,38 +9,55 @@
 }
 
 <div class="d-flex flex-column border rounded w-75">
-    <h1 class="text-muted p-xl-5">Bill Pays</h1>
+    <div class="p-xl-5">
+        <h1>Bill Pays</h1>
+        <p>
+            <small class="text-muted">Scheduled Bill Pays</small>
+        </p>
+    </div>
+
     @if (Model.Any())
     {
         <div class="row px-xl-5">
             <div class="col">
                 <table class="table">
-                    <tr class="text-muted">
-                        <th>@Html.DisplayNameFor(x => x[0].BillPayID)</th>
-                        <th>@Html.DisplayNameFor(x => x[0].PayeeID)</th>
-                        <th>@Html.DisplayNameFor(x => x[0].Amount)</th>
-                        <th>@Html.DisplayNameFor(x => x[0].ScheduleTimeUtc)</th>
-                        <th>@Html.DisplayNameFor(x => x[0].Period)</th>
-                        <th>@Html.DisplayNameFor(x => x[0].BillStatus)</th>
+                    <thead class="text-muted">
+                    <tr>
+                        <th scope="col">@Html.DisplayNameFor(x => x[0].BillPayID)</th>
+                        <th scope="col">@Html.DisplayNameFor(x => x[0].PayeeID)</th>
+                        <th scope="col">@Html.DisplayNameFor(x => x[0].Amount)</th>
+                        <th scope="col">@Html.DisplayNameFor(x => x[0].AccountNumber)</th>
+                        <th scope="col">@Html.DisplayNameFor(x => x[0].ScheduleTimeUtc)</th>
+                        <th scope="col">@Html.DisplayNameFor(x => x[0].Period)</th>
+                        <th scope="col">@Html.DisplayNameFor(x => x[0].BillStatus)</th>
+                        <th scope="col"></th>
                     </tr>
+                    </thead>
+                    <tbody class="align-baseline">
                     @foreach (var billPay in Model)
                     {
                         var scheduleTimeLocal = billPay.ScheduleTimeUtc.ToLocalTime().ToString("dd/MM/yyyy HH:mm tt");
                         <tr>
                             <td>@Html.DisplayFor(x => billPay.BillPayID)</td>
                             <td>@Html.DisplayFor(x => billPay.PayeeID)</td>
-                            <td>$@Html.DisplayFor(x => billPay.Amount)</td>
+                            <td>@Html.DisplayFor(x => billPay.Amount)</td>
+                            <td>@Html.DisplayFor(x => billPay.AccountNumber)</td>
                             <td>@Html.DisplayFor(x => scheduleTimeLocal)</td>
                             <td>@Html.DisplayFor(x => billPay.Period)</td>
                             <td>@Html.DisplayFor(x => billPay.BillStatus)</td>
+                            <td class="d-flex align-items-end justify-content-end">
+                                <a class="btn me-1 btn-sm btn-light" asp-route-billPayID="@billPay.BillPayID">Edit</a>
+                                <a class="btn btn-sm btn-light" asp-route-billPayID="@billPay.BillPayID">Delete</a>
+                            </td>
                         </tr>
                     }
+                    </tbody>
                 </table>
             </div>
         </div>
-        
-        <div class="d-flex justify-content-center align-content-center pt-xl-3">
-            @Html.PagedListPager(Model, page => Url.Action("BillPays", new { Model[0].AccountNumber, page }),
+
+        <div class="d-flex justify-content-center align-content-center pt-xl-3 pb-xl-5">
+            @Html.PagedListPager(Model, page => Url.Action("Index", new { Model[0].BillPayID, page }),
                 new PagedListRenderOptions
                 {
                     LiElementClasses = new[] { "page-item" },
@@ -50,22 +67,20 @@
     }
     else
     {
-        <h6 class="text-sm-center">
+        <h6 class="text-sm-center pt-xl-3 pb-xl-5">
             No Bills found
             <small class="text-muted">Schedule a bill now</small>
         </h6>
     }
-
     <div class="d-flex justify-content-end align-content-end">
         <a class="btn btn-outline-primary mt-xl-5 mb-xl-5 me-1"
-           asp-action="BillPay" asp-route-accountNumber="@ViewBag.AccountNumber">
-            Schedule a Bill
-        </a>
-        <a class="btn btn-outline-primary mt-xl-5 mb-xl-5 me-xl-5"
            asp-action="Index">
             Back to Accounts
         </a>
-        <div>
-        </div>
+        <a class="btn btn-outline-primary mt-xl-5 mb-xl-5 me-xl-5"
+           asp-action="BillPay" asp-route-accountNumber="@ViewBag.AccountNumber">
+            Schedule
+        </a>
     </div>
+
 </div>

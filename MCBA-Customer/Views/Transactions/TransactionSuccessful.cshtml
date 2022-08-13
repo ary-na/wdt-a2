@@ -1,0 +1,37 @@
+@model MCBA_Customer.ViewModels.Interfaces.ITransactionViewModel
+
+@{
+    ViewData["Title"] = "Transaction Successful";
+}
+<div class="d-flex flex-column border rounded w-50">
+    <div class="d-flex flex-column align-items-center justify-content-center p-xl-5">
+        <img class="m-5" src="~/img/transactions/Transaction-Success-Icon.png" alt="Transaction Success Logo" width="80" height="80"/>
+        <p class="text-success text-center">
+            <strong>Transaction successful for account number @Model.AccountNumber</strong>
+        </p>
+    </div>
+
+    <div class="row px-xl-5 pb-xl-5">
+        <div class="col">
+            <h4 class="text-muted">Transaction Details</h4>
+            <ul class="list-unstyled">
+                <li>
+                    <span class="text-muted">Amount:</span> @Model.Amount
+                </li>
+                <li>
+                    <span class="text-muted">Transaction Type:</span> @Model.TransactionType
+                </li>
+                <li>
+                    <span class="text-muted">Destination Account Number:</span> @Model.DestinationAccountNumber
+                </li>
+                <li>
+                    <span class="text-muted">Comment:</span> @Model.Comment
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="d-flex justify-content-end align-content-end p-xl-5">
+        <a class="text-decoration-none text-muted" asp-action="Index">Back to Accounts</a>
+    </div>
+</div>

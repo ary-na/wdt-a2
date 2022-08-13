@@ -2,43 +2,54 @@
 @{
     ViewData["Title"] = "Accounts";
 }
+<div class="d-flex flex-column border rounded w-75">
+    <div class="p-xl-5">
+        <h1>Your Accounts</h1>
+        <p>
+            <small class="text-muted">Welcome to your accounts, @Model.Name</small>
+        </p>
+    </div>
 
-<div>
-    <h2 class="display-4">Welcome, @Model.Name</h2>
-
-    <h3>Your Accounts</h3>
-    <table class="table">
-        <tr>
-            <th>@Html.DisplayNameFor(x => x.Accounts[0].AccountNumber)</th>
-            <th>@Html.DisplayNameFor(x => x.Accounts[0].AccountType)</th>
-            <th>@Html.DisplayNameFor(x => x.Accounts[0].Balance)</th>
-            <th></th>
-        </tr>
-        @foreach (var account in Model.Accounts)
-        {
-            <tr>
-                <td>@Html.DisplayFor(x => account.AccountNumber)</td>
-                <td>@Html.DisplayFor(x => account.AccountType)</td>
-                <td>$@Html.DisplayFor(x => account.Balance)</td>
-                <td>
-                    <a class="btn btn-sm"
-                       asp-action="Deposit" asp-route-accountNumber="@account.AccountNumber">
-                        Deposit
-                    </a>
-                    <a class="btn btn-sm"
-                       asp-action="Withdraw" asp-route-accountNumber="@account.AccountNumber">
-                        Withdraw
-                    </a>
-                    <a class="btn btn-sm"
-                       asp-action="Transfer" asp-route-accountNumber="@account.AccountNumber">
-                        Transfer
-                    </a>
-                    <a class="btn btn-sm"
-                       asp-action="BillPays" asp-route-accountNumber="@account.AccountNumber">
-                        BillPay
-                    </a>
-                </td>
-            </tr>
-        }
-    </table>
+    <div class="row px-xl-5 pb-xl-5">
+        <div class="col">
+            <table class="table">
+                <thead class="text-muted">
+                <tr>
+                    <th scope="col">@Html.DisplayNameFor(x => x.Accounts[0].AccountNumber)</th>
+                    <th scope="col">@Html.DisplayNameFor(x => x.Accounts[0].AccountType)</th>
+                    <th scope="col">@Html.DisplayNameFor(x => x.Accounts[0].Balance)</th>
+                    <th scope="col"></th>
+                </tr>
+                </thead>
+                <tbody class="align-baseline">
+                @foreach (var account in Model.Accounts)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(x => account.AccountNumber)</td>
+                        <td>@Html.DisplayFor(x => account.AccountType)</td>
+                        <td>@Html.DisplayFor(x => account.Balance)</td>
+                        <td class="d-flex align-items-end justify-content-end">
+                            <a class="btn btn-sm"
+                               asp-action="Deposit" asp-route-accountNumber="@account.AccountNumber">
+                                Deposit
+                            </a>
+                            <a class="btn btn-sm"
+                               asp-action="Withdraw" asp-route-accountNumber="@account.AccountNumber">
+                                Withdraw
+                            </a>
+                            <a class="btn btn-sm"
+                               asp-action="Transfer" asp-route-accountNumber="@account.AccountNumber">
+                                Transfer
+                            </a>
+                            <a class="btn btn-sm"
+                               asp-action="BillPays" asp-route-accountNumber="@account.AccountNumber">
+                                Bill Pay
+                            </a>
+                        </td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>

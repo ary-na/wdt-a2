@@ -72,60 +72,58 @@ public class AccountManager
         await _context.SaveChangesAsync();
     }
 
-    public async Task WithdrawAsync(WithdrawViewModel viewModel)
+    public async Task<bool> WithdrawAsync(WithdrawViewModel viewModel)
     {
         var account = await _context.Accounts.FindAsync(viewModel.Account?.AccountNumber);
         account.Balance = await GetAccountBalanceAsync(viewModel.AccountNumber);
 
-        if (viewModel.Amount <= account.AvailableBalance)
-        {
-            account.Transactions?.Add(
-                new Transaction
-                {
-                    TransactionType = viewModel.TransactionType,
-                    Amount = viewModel.Amount,
-                    Comment = viewModel.Comment,
-                    TransactionTimeUtc = DateTime.UtcNow
-                });
+        if (viewModel.Amount > account.AvailableBalance) return false;
+        account.Transactions?.Add(
+            new Transaction
+            {
+                TransactionType = viewModel.TransactionType,
+                Amount = viewModel.Amount,
+                Comment = viewModel.Comment,
+                TransactionTimeUtc = DateTime.UtcNow
+            });
 
-            if (!account.AvailableFreeTransaction(await GetTransactionCountAsync(account.AccountNumber)))
-                await ServiceChargeAsync(account.AccountNumber, viewModel.TransactionType);
-            await _context.SaveChangesAsync();
-        }
+        if (!account.AvailableFreeTransaction(await GetTransactionCountAsync(account.AccountNumber)))
+            await ServiceChargeAsync(account.AccountNumber, viewModel.TransactionType);
+        await _context.SaveChangesAsync();
+        return true;
     }
 
-    public async Task TransferAsync(TransferViewModel viewModel)
+    public async Task<bool> TransferAsync(TransferViewModel viewModel)
     {
         var account = await _context.Accounts.FindAsync(viewModel.Account?.AccountNumber);
         var destinationAccount = await _context.Accounts.FindAsync(viewModel.DestinationAccountNumber);
+        account.Balance = await GetAccountBalanceAsync(viewModel.AccountNumber);
 
-        if (viewModel.Amount <= account.AvailableBalance)
-        {
-            account.Transactions?.Add(
-                new Transaction
-                {
-                    TransactionType = viewModel.TransactionType,
-                    Amount = viewModel.Amount,
-                    DestinationAccountNumber = viewModel.DestinationAccountNumber,
-                    Comment = viewModel.Comment,
-                    TransactionTimeUtc = DateTime.UtcNow
-                }
-            );
+        if (viewModel.Amount > account.AvailableBalance || account.AccountNumber == destinationAccount.AccountNumber) return false;
 
-            destinationAccount?.Transactions?.Add(
-                new Transaction
-                {
-                    TransactionType = TransactionType.TransferIn,
-                    Amount = viewModel.Amount,
-                    Comment = viewModel.Comment,
-                    TransactionTimeUtc = DateTime.UtcNow
-                }
-            );
+        account.Transactions?.Add(
+            new Transaction
+            {
+                TransactionType = viewModel.TransactionType,
+                Amount = viewModel.Amount,
+                DestinationAccountNumber = viewModel.DestinationAccountNumber,
+                Comment = viewModel.Comment,
+                TransactionTimeUtc = DateTime.UtcNow
+            });
 
-            if (!account.AvailableFreeTransaction(await GetTransactionCountAsync(account.AccountNumber)))
-                await ServiceChargeAsync(account.AccountNumber, viewModel.TransactionType);
-            await _context.SaveChangesAsync();
-        }
+        destinationAccount?.Transactions?.Add(
+            new Transaction
+            {
+                TransactionType = TransactionType.TransferIn,
+                Amount = viewModel.Amount,
+                Comment = viewModel.Comment,
+                TransactionTimeUtc = DateTime.UtcNow
+            });
+
+        if (!account.AvailableFreeTransaction(await GetTransactionCountAsync(account.AccountNumber)))
+            await ServiceChargeAsync(account.AccountNumber, viewModel.TransactionType);
+        await _context.SaveChangesAsync();
+        return true;
     }
 
     private async Task ServiceChargeAsync(int accountNumber, TransactionType transactionType)

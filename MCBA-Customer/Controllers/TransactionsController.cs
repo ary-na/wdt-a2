@@ -10,6 +10,7 @@ namespace MCBA_Customer.Controllers;
 // Week 5 Lectorial - HomeController.cs
 
 // https://stackoverflow.com/questions/32072764/how-to-call-one-action-method-from-another-action-methodboth-are-in-the-same-co
+// https://stackoverflow.com/questions/879852/display-a-view-from-another-controller-in-asp-net-mvc
 
 public class TransactionsController : Controller
 {
@@ -57,7 +58,7 @@ public class TransactionsController : Controller
 
         // Insert transaction
         await _accountManager.DepositAsync(viewModel);
-        return RedirectToAction(nameof(Index));
+        return View("TransactionSuccessful", viewModel);
     }
 
     public async Task<IActionResult> Withdraw(int accountNumber)
@@ -83,8 +84,9 @@ public class TransactionsController : Controller
             return View(viewModel);
 
         // Insert transaction
-        await _accountManager.WithdrawAsync(viewModel);
-        return RedirectToAction(nameof(Index));
+        var success = await _accountManager.WithdrawAsync(viewModel);
+
+        return success ? View("TransactionSuccessful", viewModel) : View("TransactionFailed", viewModel);
     }
     
     public async Task<IActionResult> Transfer(int accountNumber)
@@ -110,8 +112,8 @@ public class TransactionsController : Controller
             return View(viewModel);
 
         // Insert transaction
-        await _accountManager.TransferAsync(viewModel);
-        return RedirectToAction(nameof(Index));
+        var success = await _accountManager.TransferAsync(viewModel);
+        return success ? View("TransactionSuccessful", viewModel) : View("TransactionFailed", viewModel);
     }
     
     public async Task<IActionResult> BillPays(int accountNumber, int page = 1)

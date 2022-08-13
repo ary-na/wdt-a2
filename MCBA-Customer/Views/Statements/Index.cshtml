@@ -3,30 +3,42 @@
     ViewData["Title"] = "My Statements";
 }
 
-<div>
-    <h2 class="display-4">Welcome, @Model.Name</h2>
+<div class="d-flex flex-column border rounded w-75">
+    <div class="p-xl-5">
+        <h1>Accounts</h1>
+        <p>
+            <small class="text-muted">View statement for each account, @Model.Name</small>
+        </p>
+    </div>
 
-    <h3>Accounts</h3>
-    <table class="table">
-        <tr>
-            <th>@Html.DisplayNameFor(x => x.Accounts[0].AccountNumber)</th>
-            <th>@Html.DisplayNameFor(x => x.Accounts[0].AccountType)</th>
-            <th>@Html.DisplayNameFor(x => x.Accounts[0].Balance)</th>
-            <th></th>
-        </tr>
-        @foreach (var account in Model.Accounts)
-        {
-            <tr>
-                <td>@Html.DisplayFor(x => account.AccountNumber)</td>
-                <td>@Html.DisplayFor(x => account.AccountType)</td>
-                <td>$@Html.DisplayFor(x => account.Balance)</td>
-                <td>
-                    <a class="btn btn-sm"
-                       asp-action="Statement" asp-route-accountNumber="@account.AccountNumber">
-                        View Statement
-                    </a>
-                </td>
-            </tr>
-        }
-    </table>
+    <div class="row px-xl-5 pb-xl-5">
+        <div class="col">
+            <table class="table">
+                <thead class="text-muted">
+                <tr>
+                    <th scope="col">@Html.DisplayNameFor(x => x.Accounts[0].AccountNumber)</th>
+                    <th scope="col">@Html.DisplayNameFor(x => x.Accounts[0].AccountType)</th>
+                    <th scope="col">@Html.DisplayNameFor(x => x.Accounts[0].Balance)</th>
+                    <th scope="col"></th>
+                </tr>
+                </thead>
+                <tbody class="align-baseline">
+                @foreach (var account in Model.Accounts)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(x => account.AccountNumber)</td>
+                        <td>@Html.DisplayFor(x => account.AccountType)</td>
+                        <td>@Html.DisplayFor(x => account.Balance)</td>
+                        <td class="d-flex align-items-end justify-content-end">
+                            <a class="btn btn-sm btn-light"
+                               asp-action="Statement" asp-route-accountNumber="@account.AccountNumber">
+                                View Statement
+                            </a>
+                        </td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
