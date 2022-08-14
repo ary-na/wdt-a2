@@ -9,6 +9,9 @@ using Xunit;
 
 namespace MCBA_Customer.Tests.Controllers;
 
+// Code sourced and adapted from:
+// Week 10 Lectorial - HomeControllerTests.cs
+
 public class CustomerControllerTests : McbaCustomerTest
 {
     private readonly CustomerController _controller;

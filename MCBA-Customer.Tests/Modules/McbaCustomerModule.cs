@@ -3,7 +3,6 @@ using Autofac.Extensions.DependencyInjection;
 using MCBA_Customer.Controllers;
 using MCBA_Customer.Data;
 using MCBA_Customer.Models.DataManagers;
-using MCBA_Customer.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Session;
@@ -15,6 +14,18 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
 namespace MCBA_Customer.Tests.Modules;
+
+
+// Code sourced and adapted from:
+// Week 10 Lectorial - BackendModule.cs
+// Week 10 Tutorial - BackendModule.cs
+
+// https://mookiefumi.com/2019-10-29-unit-testing-the-way-i-test-my-viewmodels
+// https://stackoverflow.com/questions/72928549/error-while-add-migration-to-create-database-in-entity-framework-6-method-not-f
+// https://autofac.readthedocs.io/en/latest/register/registration.html
+// https://docs.autofac.org/en/latest/faq/select-by-context.html
+// https://chsamii.medium.com/register-ef-core-with-autofac-2c8cb76d52d6
+
 
 public class McbaCustomerModule : Module
 {
