@@ -7,6 +7,7 @@ namespace MCBA_Model.Models;
 
 // Code sourced and adapted from:
 // Week 10 Lectorial - Account.cs
+// https://rmit.instructure.com/courses/102750/files/24468521?wrap=1
 
 // https://docs.microsoft.com/en-us/dotnet/core/tutorials/library-with-visual-studio?pivots=dotnet-6-0
 
@@ -23,8 +24,7 @@ public class Account
     [Key, DatabaseGenerated(DatabaseGeneratedOption.None), DisplayName("Account Number")]
     public int AccountNumber { get; set; }
 
-    [DisplayName("Account Type")]
-    public AccountType AccountType { get; set; }
+    [DisplayName("Account Type")] public AccountType AccountType { get; set; }
 
     public int CustomerID { get; set; }
     public virtual Customer Customer { get; set; }

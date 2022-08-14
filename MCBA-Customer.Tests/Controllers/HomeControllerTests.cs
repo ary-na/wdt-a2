@@ -12,7 +12,7 @@ public class HomeControllerTests : McbaCustomerTest
     private readonly ILogger<HomeController> _logger;
 
     public HomeControllerTests() => _logger = Container.Resolve<ILogger<HomeController>>();
-    
+
     [Fact]
     public void Index_ReturnsAViewResult()
     {
@@ -25,7 +25,7 @@ public class HomeControllerTests : McbaCustomerTest
         // Assert.
         Assert.IsType<ViewResult>(result);
     }
-    
+
     [Fact]
     public void Privacy_ReturnsAViewResult()
     {

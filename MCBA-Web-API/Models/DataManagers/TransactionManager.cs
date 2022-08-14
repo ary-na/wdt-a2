@@ -1,4 +1,4 @@
-using MCBA_Customer.Data;
+using MCBA_Model.Data;
 using MCBA_Model.Models;
 using MCBA_Web_API.Models.Repository;
 
@@ -35,7 +35,7 @@ public class TransactionManger : IDataRepository<Transaction, int>
     {
         _context.Update(transaction);
         _context.SaveChanges();
-            
+
         return id;
     }
 

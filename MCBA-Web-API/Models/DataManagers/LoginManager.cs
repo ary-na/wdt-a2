@@ -1,8 +1,6 @@
-using MCBA_Customer.Data;
+using MCBA_Model.Data;
 using MCBA_Model.Models;
-using MCBA_Model.Models.Types;
 using MCBA_Web_API.Models.Repository;
-using Microsoft.EntityFrameworkCore;
 
 namespace MCBA_Web_API.Models.DataManagers;
 
@@ -37,7 +35,7 @@ public class LoginManager : IDataRepository<Login, string?>
     {
         _context.Update(login);
         _context.SaveChanges();
-            
+
         return id;
     }
 

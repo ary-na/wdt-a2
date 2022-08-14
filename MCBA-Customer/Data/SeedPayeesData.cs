@@ -1,3 +1,4 @@
+using MCBA_Model.Data;
 using MCBA_Model.Models;
 
 namespace MCBA_Customer.Data;

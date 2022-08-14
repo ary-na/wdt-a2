@@ -1,6 +1,7 @@
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using MCBA_Customer.Data;
+using MCBA_Model.Data;
 using MCBA_Web_API.Models.DataManagers;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -20,11 +21,11 @@ public class McbaWebApiModule : Module
     {
         base.Load(builder);
 
-         var services = new ServiceCollection();
-         services.AddControllers().AddApplicationPart(typeof(ControllerBase).Assembly)
-             .AddControllersAsServices();
-         
-        
+        var services = new ServiceCollection();
+        services.AddControllers().AddApplicationPart(typeof(ControllerBase).Assembly)
+            .AddControllersAsServices();
+
+
         builder.Populate(services);
 
         // Substitute all ILogger types.

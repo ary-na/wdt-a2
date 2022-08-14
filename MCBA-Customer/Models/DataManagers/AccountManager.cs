@@ -1,5 +1,6 @@
 using MCBA_Customer.Data;
 using MCBA_Customer.ViewModels;
+using MCBA_Model.Data;
 using MCBA_Model.Models;
 using MCBA_Model.Models.Types;
 using X.PagedList;

@@ -1,4 +1,4 @@
-using MCBA_Customer.Data;
+using MCBA_Model.Data;
 using MCBA_Model.Models;
 using MCBA_Web_API.Models.Repository;
 
@@ -6,6 +6,7 @@ namespace MCBA_Web_API.Models.DataManagers;
 
 // Code sourced and adapted from:
 // Week 9 Lectorial - MovieManager.cs
+// https://rmit.instructure.com/courses/102750/files/26419005?wrap=1
 
 public class AccountManager : IDataRepository<Account, int>
 {
@@ -49,6 +50,6 @@ public class AccountManager : IDataRepository<Account, int>
 
     public IEnumerable<Transaction> GetTransactions(int id)
     {
-       return _context.Transactions.Where(x => x.AccountNumber == id).ToList();
+        return _context.Transactions.Where(x => x.AccountNumber == id).ToList();
     }
 }

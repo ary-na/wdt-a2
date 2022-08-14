@@ -20,7 +20,7 @@ public class Payee
     public string? PostCode { get; set; }
 
     [Required, StringLength(14)] public string? Phone { get; set; }
-    
+
     [InverseProperty(nameof(BillPay.Payee))]
     public virtual List<BillPay>? Payments { get; set; }
 }

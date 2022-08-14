@@ -1,4 +1,4 @@
-using MCBA_Customer.Data;
+using MCBA_Model.Data;
 using MCBA_Web_API.Models.DataManagers;
 using Microsoft.EntityFrameworkCore;
 

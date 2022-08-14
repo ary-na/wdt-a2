@@ -1,9 +1,7 @@
 using MCBA_Customer.Controllers;
 using MCBA_Customer.Tests.Base;
 using MCBA_Customer.ViewModels;
-using MCBA_Model.Models;
 using MCBA_Model.Utilities;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Xunit;
 
@@ -17,7 +15,7 @@ public class TransactionsControllerTests : McbaCustomerTest
     {
         _controller = Container.ResolveController<TransactionsController>();
     }
-    
+
     [Theory]
     [InlineData(4100)]
     [InlineData(4101)]
@@ -32,7 +30,7 @@ public class TransactionsControllerTests : McbaCustomerTest
         var viewResult = Assert.IsType<ViewResult>(result);
         Assert.IsAssignableFrom<DepositViewModel>(viewResult.ViewData.Model);
     }
-    
+
     [Theory]
     [InlineData(4100)]
     [InlineData(4101)]
@@ -47,7 +45,7 @@ public class TransactionsControllerTests : McbaCustomerTest
         var viewResult = Assert.IsType<ViewResult>(result);
         Assert.IsAssignableFrom<WithdrawViewModel>(viewResult.ViewData.Model);
     }
-    
+
     [Theory]
     [InlineData(4100)]
     [InlineData(4101)]
@@ -62,7 +60,7 @@ public class TransactionsControllerTests : McbaCustomerTest
         var viewResult = Assert.IsType<ViewResult>(result);
         Assert.IsAssignableFrom<TransferViewModel>(viewResult.ViewData.Model);
     }
-    
+
     [Theory]
     [InlineData(4100)]
     [InlineData(4101)]
@@ -77,6 +75,4 @@ public class TransactionsControllerTests : McbaCustomerTest
         var viewResult = Assert.IsType<ViewResult>(result);
         Assert.IsAssignableFrom<BillPayViewModel>(viewResult.ViewData.Model);
     }
-    
-    
 }

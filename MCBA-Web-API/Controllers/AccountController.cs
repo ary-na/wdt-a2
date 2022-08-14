@@ -22,7 +22,7 @@ public class AccountController : ControllerBase
     {
         return _repo.GetAll();
     }
-    
+
     [HttpGet("{id}")]
     public IEnumerable<Transaction> GetTransactions(int id)
     {

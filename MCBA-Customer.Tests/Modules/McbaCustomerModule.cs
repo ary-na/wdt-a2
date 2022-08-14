@@ -3,6 +3,7 @@ using Autofac.Extensions.DependencyInjection;
 using MCBA_Customer.Controllers;
 using MCBA_Customer.Data;
 using MCBA_Customer.Models.DataManagers;
+using MCBA_Model.Data;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Session;
@@ -15,10 +16,12 @@ using Microsoft.Extensions.Options;
 
 namespace MCBA_Customer.Tests.Modules;
 
-
 // Code sourced and adapted from:
 // Week 10 Lectorial - BackendModule.cs
+// https://rmit.instructure.com/courses/102750/files/24468521?wrap=1
+
 // Week 10 Tutorial - BackendModule.cs
+// https://rmit.instructure.com/courses/102750/files/24426949?wrap=1
 
 // https://mookiefumi.com/2019-10-29-unit-testing-the-way-i-test-my-viewmodels
 // https://stackoverflow.com/questions/72928549/error-while-add-migration-to-create-database-in-entity-framework-6-method-not-f
@@ -26,20 +29,19 @@ namespace MCBA_Customer.Tests.Modules;
 // https://docs.autofac.org/en/latest/faq/select-by-context.html
 // https://chsamii.medium.com/register-ef-core-with-autofac-2c8cb76d52d6
 
-
 public class McbaCustomerModule : Module
 {
     protected override void Load(ContainerBuilder builder)
     {
         base.Load(builder);
 
-         var services = new ServiceCollection();
-         services.AddControllersWithViews().AddApplicationPart(typeof(HomeController).Assembly)
-             .AddControllersAsServices();
-        
+        var services = new ServiceCollection();
+        services.AddControllersWithViews().AddApplicationPart(typeof(HomeController).Assembly)
+            .AddControllersAsServices();
+
         builder.Populate(services);
 
-        // Substitute all ILogger types.
+        // Substitute all ILogger types
         builder.RegisterInstance(new LoggerFactory()).As<ILoggerFactory>().SingleInstance();
         builder.RegisterGeneric(typeof(Logger<>)).As(typeof(ILogger<>)).SingleInstance();
 
@@ -61,7 +63,7 @@ public class McbaCustomerModule : Module
             };
         });
 
-        // Register types for DI (Dependency Injection).
+        // Register types for DI (Dependency Injection)
         builder.Register(_ =>
         {
             var context = new McbaContext(new DbContextOptionsBuilder<McbaContext>()
