@@ -1,3 +1,6 @@
+using Autofac;
+using Microsoft.AspNetCore.Mvc;
+
 namespace MCBA_Model.Utilities;
 
 public static class ExtensionUtilities
@@ -19,4 +22,11 @@ public static class ExtensionUtilities
     //         ? cssClass
     //         : "";
     // }
+    
+    public static T ResolveController<T>(this IContainer container) where T : Controller
+    {
+        var controller = container.Resolve<T>();
+        controller.ControllerContext = container.Resolve<ControllerContext>();
+        return controller;
+    }
 }

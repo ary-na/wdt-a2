@@ -1,4 +1,24 @@
 ﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
 	<s:String x:Key="/Default/Environment/AssemblyExplorer/XmlDocument/@EntryValue">&lt;AssemblyExplorer&gt;
   &lt;Assembly Path="/Users/ariannajafi/.nuget/packages/simplehashing/2.0.0.1/lib/netstandard2.0/SimpleHashing.dll" /&gt;
-&lt;/AssemblyExplorer&gt;</s:String></wpf:ResourceDictionary>
+&lt;/AssemblyExplorer&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=4875323c_002D3512_002D4e44_002D975c_002Dfa88fa340d2d/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="Index_ReturnsAViewResult_WithAListOfAccounts" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;TestAncestor&gt;
+    &lt;TestId&gt;xUnit::BD029653-3563-4305-A179-1BC9C41797C7::net6.0::MCBA_Admin.Tests.Controllers.AccountsControllerTests.Index_ReturnsAViewResult_WithAListOfAccounts&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::FEC8D0F6-0C00-4428-965A-7A961797E663::net6.0::MCBA_Customer.Tests.Controllers.HomeControllerTests.Index_ReturnsAViewResult&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::FEC8D0F6-0C00-4428-965A-7A961797E663::net6.0::MCBA_Customer.Tests.Controllers.HomeControllerTests&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::FEC8D0F6-0C00-4428-965A-7A961797E663::net6.0::MCBA_Customer.Tests.Controllers.CustomerControllerTests.Index_ReturnsAViewResult_WithOneCustomer&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::FEC8D0F6-0C00-4428-965A-7A961797E663::net6.0::MCBA_Customer.Tests.Controllers.CustomerControllerTests.Index_ReturnsAViewResult_WithAListOfOwnerInventory&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::FEC8D0F6-0C00-4428-965A-7A961797E663::net6.0::MCBA_Customer.Tests.Controllers.CustomerControllerTests&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::FEC8D0F6-0C00-4428-965A-7A961797E663::net6.0::MCBA_Customer.Tests.Controllers.LoginControllerTests.Index_ReturnsAViewResult&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::FEC8D0F6-0C00-4428-965A-7A961797E663::net6.0::MCBA_Customer.Tests.Controllers.LoginControllerTests.Logout_ReturnsAViewResult_WithClearedSession&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::FEC8D0F6-0C00-4428-965A-7A961797E663::net6.0::MCBA_Customer.Tests.Controllers.LoginControllerTests.Login_ReturnsARedirectToActionResult_WithSetSession&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::FEC8D0F6-0C00-4428-965A-7A961797E663::net6.0::MCBA_Customer.Tests.Controllers.LoginControllerTests&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::FEC8D0F6-0C00-4428-965A-7A961797E663::net6.0::MCBA_Customer.Tests.Controllers.StatementsControllerTests.Index_ReturnsAViewResult_WithAListOfAccounts&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::FEC8D0F6-0C00-4428-965A-7A961797E663::net6.0::MCBA_Customer.Tests.Controllers.StatementsControllerTests&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::FEC8D0F6-0C00-4428-965A-7A961797E663::net6.0::MCBA_Customer.Tests.Controllers.TransactionsControllerTests.Deposit_ReturnsAViewResult_WithADepositViewModel&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::FEC8D0F6-0C00-4428-965A-7A961797E663::net6.0::MCBA_Customer.Tests.Controllers.TransactionsControllerTests&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::BD029653-3563-4305-A179-1BC9C41797C7::net6.0::MCBA_Admin.Tests.Controllers.AccountsControllerTests&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::63BC3D1F-9E5F-438E-83BC-1A1223FF8F69::net6.0::MCBA_Web_API.Tests.Controllers.AccountControllerTests.GetAccounts_ReturnsIEnumerable_Accounts&lt;/TestId&gt;
+  &lt;/TestAncestor&gt;
+&lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>

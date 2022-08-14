@@ -22,7 +22,7 @@ public class CustomerController : Controller
         return View(await _customerManager.GetCustomerAsync(CustomerID));
     }
 
-    public async Task<IActionResult> EditProfile(int customerID)
+    public IActionResult EditProfile(int customerID)
     {
         return View(new EditProfileViewModel
         {
@@ -41,7 +41,7 @@ public class CustomerController : Controller
         return RedirectToAction(nameof(Index));
     }
 
-    public async Task<IActionResult> ChangePassword(int customerID)
+    public IActionResult ChangePassword(int customerID)
     {
         return View(new ChangePasswordViewModel()
             {
