@@ -26,7 +26,7 @@ public class LoginController : Controller
 
         var admin = _loginManager.GetAdmin();
 
-        // Login admin.
+        // Login admin
         HttpContext.Session.SetInt32(nameof(Admin.AdminID), admin.AdminID);
         HttpContext.Session.SetString(nameof(Admin.Name), admin.Name);
 

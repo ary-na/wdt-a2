@@ -21,10 +21,10 @@ public class AccountsManager
         if (!response.IsSuccessStatusCode)
             throw new Exception();
 
-        // Storing the response details received from web api.
+        // Storing the response details received from web api
         var result = await response.Content.ReadAsStringAsync();
 
-        // Deserializing the response received from web api and storing into a list.
+        // Deserializing the response received from web api and returning a list
         return JsonConvert.DeserializeObject<List<Account>>(result);
     }
 
@@ -42,6 +42,7 @@ public class AccountsManager
         // Deserializing the response received from web api and storing into a list.
         var transactions = JsonConvert.DeserializeObject<List<Transaction>>(result);
 
+        // Filtering the list
         if (from.HasValue && to.HasValue)
             return await transactions.Where(x =>
                     x.TransactionTimeUtc >= from?.ToUniversalTime() && x.TransactionTimeUtc <= to?.ToUniversalTime())

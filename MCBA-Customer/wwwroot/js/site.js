@@ -8,7 +8,7 @@
 
 // Confirm Modal
 $("#confirmModal").on("shown.bs.modal", function () {
-    
+
     let amount = $("#Amount").val();
     let comment = $("#Comment").val();
     let destinationAccountNumber = $("#DestinationAccountNumber").val();

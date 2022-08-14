@@ -4,6 +4,7 @@ namespace MCBA_Customer.Data;
 
 // Code sourced and adapted from:
 // Week 5 Lectorial - SeedData.cs
+// https://rmit.instructure.com/courses/102750/files/24426483?wrap=1
 
 public static class SeedPayeesData
 {

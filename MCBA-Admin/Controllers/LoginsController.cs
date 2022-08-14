@@ -10,8 +10,7 @@ public class LoginsController : Controller
 
     public LoginsController(LoginsManager loginsManager) =>
         _loginsManager = loginsManager;
-
-
+    
     public async Task<IActionResult> Index() =>
         View(await _loginsManager.GetAllAsync());
 

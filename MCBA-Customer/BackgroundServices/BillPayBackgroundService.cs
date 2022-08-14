@@ -7,6 +7,7 @@ namespace MCBA_Customer.BackgroundServices;
 
 // Code sourced and adapted from:
 // Week 8 Lectorial - PeopleBackgroundService.cs
+// https://rmit.instructure.com/courses/102750/files/24426772?wrap=1
 
 // https://docs.microsoft.com/en-us/dotnet/api/system.datetime.addmonths?view=net-6.0
 // https://docs.microsoft.com/en-us/visualstudio/ide/reference/invert-if-statement?view=vs-2022
@@ -67,7 +68,8 @@ public class BillPayBackgroundService : BackgroundService
                 billPay.BillStatus = BillPayStatus.Failed;
             }
 
-            if (billPay.Period == BillPayPeriod.OneOff || billPay.BillStatus is BillPayStatus.Failed or BillPayStatus.Blocked) continue;
+            if (billPay.Period == BillPayPeriod.OneOff ||
+                billPay.BillStatus is BillPayStatus.Failed or BillPayStatus.Blocked) continue;
             billPay.ScheduleTimeUtc = billPay.ScheduleTimeUtc.AddMonths(1);
             billPay.BillStatus = BillPayStatus.Pending;
         }

@@ -8,6 +8,7 @@ namespace MCBA_Customer.Controllers;
 
 // Code sourced and adapted from:
 // Week 5 Lectorial - HomeController.cs
+// https://rmit.instructure.com/courses/102750/files/24426483?wrap=1
 
 // https://stackoverflow.com/questions/32072764/how-to-call-one-action-method-from-another-action-methodboth-are-in-the-same-co
 // https://stackoverflow.com/questions/879852/display-a-view-from-another-controller-in-asp-net-mvc
@@ -88,7 +89,7 @@ public class TransactionsController : Controller
 
         return success ? View("TransactionSuccessful", viewModel) : View("TransactionFailed", viewModel);
     }
-    
+
     public async Task<IActionResult> Transfer(int accountNumber)
     {
         return View(new TransferViewModel
@@ -115,7 +116,7 @@ public class TransactionsController : Controller
         var success = await _accountManager.TransferAsync(viewModel);
         return success ? View("TransactionSuccessful", viewModel) : View("TransactionFailed", viewModel);
     }
-    
+
     public async Task<IActionResult> BillPays(int accountNumber, int page = 1)
     {
         ViewBag.AccountNumber = accountNumber;
@@ -144,9 +145,9 @@ public class TransactionsController : Controller
 
         // Insert transaction
         await _accountManager.BillPayAsync(viewModel);
-        return RedirectToAction(nameof(BillPays), new { accountNumber = viewModel.AccountNumber});
+        return RedirectToAction(nameof(BillPays), new { accountNumber = viewModel.AccountNumber });
     }
-    
+
     public async Task<IActionResult> EditBillPay(int billPayID)
     {
         var billPay = await _accountManager.GetBillPayAsync(billPayID);
@@ -160,12 +161,12 @@ public class TransactionsController : Controller
         // Check model state
         if (!ModelState.IsValid)
             return View(billPay);
-        
+
         var success = await _accountManager.UpdateBillPayAsync(billPay);
-        return RedirectToAction(nameof(BillPays), new { accountNumber = billPay.AccountNumber});
+        return RedirectToAction(nameof(BillPays), new { accountNumber = billPay.AccountNumber });
     }
-    
-    
+
+
     public async Task<IActionResult> DeleteBillPay(int billPayID)
     {
         var billPay = await _accountManager.GetBillPayAsync(billPayID);
@@ -179,8 +180,8 @@ public class TransactionsController : Controller
         // Check model state
         if (!ModelState.IsValid)
             return View(billPay);
-        
+
         await _accountManager.DeleteBillPayAsync(billPay);
-        return RedirectToAction(nameof(BillPays), new { accountNumber = billPay.AccountNumber});
+        return RedirectToAction(nameof(BillPays), new { accountNumber = billPay.AccountNumber });
     }
 }

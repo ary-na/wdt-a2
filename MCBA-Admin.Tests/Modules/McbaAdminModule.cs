@@ -55,7 +55,7 @@ public class McbaAdminModule : Module
             var client = new HttpClient();
             client.BaseAddress = new Uri("https://localhost:7249/api");
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            
+
             return client;
         });
 

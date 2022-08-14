@@ -38,7 +38,7 @@ public static class CustomerWebService
             // https://docs.microsoft.com/en-au/dotnet/standard/base-types/custom-date-and-time-format-strings
             DateFormatString = "dd/MM/yyyy hh:mm:ss tt"
         });
-        
+
         if (customers is null) return;
         // Insert customers into database
         await InsertCustomersAsync(context, customers);
@@ -53,7 +53,7 @@ public static class CustomerWebService
     // https://docs.microsoft.com/en-us/troubleshoot/sql/connect/error-message-when-you-connect
     // https://stackoverflow.com/questions/1202981/select-multiple-fields-from-list-in-linq
     // https://stackoverflow.com/questions/28588684/add-object-list-to-db-context-in-entity-framework
-    
+
 
     private static async Task InsertCustomersAsync(McbaContext context, IEnumerable<CustomerDTO> customers)
     {
@@ -97,6 +97,7 @@ public static class CustomerWebService
                 }
             }
         }
+
         await context.SaveChangesAsync();
     }
 }

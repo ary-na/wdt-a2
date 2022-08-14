@@ -4,7 +4,10 @@ using MCBA_Admin.Models.DataManagers;
 
 // Code sourced and adapted from:
 // Week 9 Lectorial - MvcMovie, Program.cs
+// https://rmit.instructure.com/courses/102750/files/26419005?wrap=1
+
 // Week 6 Tutorial - Program.cs
+// https://rmit.instructure.com/courses/102750/files/24426594?wrap=1
 
 var builder = WebApplication.CreateBuilder(args);
 

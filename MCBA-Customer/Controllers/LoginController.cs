@@ -3,7 +3,6 @@ using MCBA_Customer.ViewModels;
 using MCBA_Model.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using SimpleHashing;
 
 namespace MCBA_Customer.Controllers;
 
@@ -26,7 +25,7 @@ public class LoginController : Controller
             return View(new LoginViewModel { LoginID = viewModel.LoginID });
         }
 
-        // Login customer.
+        // Login customer
         HttpContext.Session.SetInt32(nameof(Customer.CustomerID), login.CustomerID);
         HttpContext.Session.SetString(nameof(Customer.Name), login.Customer.Name);
 
@@ -36,7 +35,7 @@ public class LoginController : Controller
     [Route("Logout")]
     public IActionResult Logout()
     {
-        // Logout customer.
+        // Logout customer
         HttpContext.Session.Clear();
 
         return RedirectToAction("Index", "Home");

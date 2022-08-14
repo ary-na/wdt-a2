@@ -20,10 +20,10 @@ public class BillPaysManager
         if (!response.IsSuccessStatusCode)
             throw new Exception();
 
-        // Storing the response details received from web api.
+        // Storing the response details received from web api
         var result = await response.Content.ReadAsStringAsync();
 
-        // Deserializing the response received from web api and storing into a list.
+        // Deserializing the response received from web api and returning a list
         return JsonConvert.DeserializeObject<List<BillPay>>(result);
     }
 
@@ -34,10 +34,10 @@ public class BillPaysManager
         if (!response.IsSuccessStatusCode)
             throw new Exception();
 
-        // Storing the response details received from web api.
+        // Storing the response details received from web api
         var result = await response.Content.ReadAsStringAsync();
 
-        // Deserializing the response received from web api and storing
+        // Deserializing the response received from web api and returning it
         return JsonConvert.DeserializeObject<BillPay>(result);
     }
 
@@ -50,6 +50,7 @@ public class BillPaysManager
             .ToPagedListAsync(page, pageSize);
     }
 
+    // Update bill pay
     public async Task<bool> PutAsync(BillPay billPay)
     {
         var content = new StringContent(JsonConvert.SerializeObject(billPay), Encoding.UTF8, "application/json");

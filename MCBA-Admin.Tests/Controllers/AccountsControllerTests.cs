@@ -1,8 +1,6 @@
 using Autofac;
 using MCBA_Admin.Controllers;
 using MCBA_Admin.Tests.Base;
-using Microsoft.AspNetCore.Mvc;
-using Xunit;
 
 namespace MCBA_Admin.Tests.Controllers;
 

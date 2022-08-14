@@ -18,10 +18,10 @@ public class CustomersManager
         if (!response.IsSuccessStatusCode)
             throw new Exception();
 
-        // Storing the response details received from web api.
+        // Storing the response details received from web api
         var result = await response.Content.ReadAsStringAsync();
 
-        // Deserializing the response received from web api and storing into a list.
+        // Deserializing the response received from web api and returning a list
         return JsonConvert.DeserializeObject<List<Customer>>(result);
     }
 
@@ -32,13 +32,14 @@ public class CustomersManager
         if (!response.IsSuccessStatusCode)
             throw new Exception();
 
-        // Storing the response details received from web api.
+        // Storing the response details received from web api
         var result = await response.Content.ReadAsStringAsync();
 
-        // Deserializing the response received from web api and storing
+        // Deserializing the response received from web api and returning it
         return JsonConvert.DeserializeObject<Customer>(result);
     }
 
+    // Update customer
     public async Task<bool> PutAsync(Customer customer)
     {
         var content = new StringContent(JsonConvert.SerializeObject(customer), Encoding.UTF8, "application/json");
